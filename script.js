@@ -1,5 +1,5 @@
-const ctx = document.getElementById("example").getContext('2d');  
-
+//const ctx = document.getElementById("example").getContext('2d');  
+const ctx = document.getElementById("gameboard").getContext('2d'); 
     
   
 class Game{
