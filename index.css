@@ -1,6 +1,7 @@
-gameboard{
-    border: 2px;
-    border-color: black;
+#gameboard{
+    border: 2px solid black;
+    justify-content: center;
+    align-content: center;
 
     
 }
