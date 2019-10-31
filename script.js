@@ -9,12 +9,12 @@
         //bottom border
         ctx.fillRect(0,400,550,150);
 
-        class Person{
-            constructor(health,direction){
-                this.health = health
-            }
-        }
-        class Hero extends Person{}
-        class Mob extends Person{}
+        // class Person{
+        //     constructor(health,direction){
+        //         this.health = health
+        //     }
+        // }
+        // class Hero extends Person{}
+        // class Mob extends Person{}
 
         
