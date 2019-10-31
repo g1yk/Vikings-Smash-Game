@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>IronHack Arena</title>
-    <link rel="stylesheet" href="./index.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="./index.css">
 </head>
-<body>
-    <h1>The Game</h1>
-    <canvas id= "gameboard" width="550px" height ="550px"></canvas>
-   
+<body onload="startGame()">
+<canvas id= "canvas" width="550px" height ="550px"></canvas>
+<!-- <div style="text-align:center;width:480px;">
+  <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button><br><br>
+  <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()">LEFT</button>
+  <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()">RIGHT</button><br><br>
+  <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">DOWN</button>
+</div> -->
+
 </body>
 <script type="text/javascript" src="script.js"></script>
-
-</body>
-
-<script type="text/javascript" src="hero.js"></script>
-<script type="text/javascript" src="game.js"></script>
 </html>
