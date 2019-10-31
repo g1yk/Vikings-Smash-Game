@@ -19,6 +19,10 @@ class Hero {
 }
 
 
+class Vector {
+    constructor(direction, speed) {
+        this.setDirection(direction, speed)
+    }
 
 setDirection(direction, speed) {
     this.direction = direction;
@@ -42,7 +46,7 @@ setDirection(direction, speed) {
             this.x = speed;
             break;
     }
-})
+}
 
 
 class Body {
@@ -113,4 +117,4 @@ class Player extends Body {
 }
 
 
-export default Hero;
+// export default Hero;
