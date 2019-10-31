@@ -47,7 +47,7 @@ setDirection(direction, speed) {
             break;
     }
 }
-
+}
 
 class Body {
     constructor({ imageName, speed }) {
