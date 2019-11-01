@@ -27,11 +27,8 @@ class Player {
     this.height = height;
   }
   loadPlayer = () => {
-    let img = coinImage
-    //let img = new Image();
-    //img.src = './images/warrior.png'
-    coinImage.addEventListener("load", gameLoop);
-	  coinImage.src = "images/walking-right2.png";
+    let img = new Image();
+    img.src = './images/warrior.png'
     
     img.onload = () => {
       this.img = img; 
