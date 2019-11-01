@@ -66,8 +66,8 @@ class Monster {
     console.log(this)
 
     this.y++;
-    if(this.y >400){
-      debugger
+    if(this.y >600){
+      
       ladies.shift();
     }
   }

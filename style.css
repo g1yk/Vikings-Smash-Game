@@ -34,7 +34,12 @@ body button {
 }
 
 #game-board {
-    float: left;
+    float: center;
     padding: 20px 0px;
-    border: 1px solid black;
+    border: 3px solid black;
+    background-image: url(./images/minecraft\ house.jpg);
+    background-size: contain;
+    justify-content: center;
+    align-self: center;
+    
 }
