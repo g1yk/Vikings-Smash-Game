@@ -11,12 +11,12 @@ let ladies = []
 
 
 
-class Road {
-  drawRoad = () => {
-    ctx.fillStyle="#bbb"
-    ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
-  }
-}
+// class Road {
+//   drawRoad = () => {
+//     ctx.fillStyle="#bbb"
+//     ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
+//   }
+// }
 
 
 class Player {
@@ -43,56 +43,56 @@ class Player {
   }
 } 
 
-// class Monster {
-//   constructor(x,y, width, height){
-//       this.x =x;
-//       this.y =y;
-//       this.width = width;
-//       this.height = height;
-//       this.monster = null;
-//   }
-//   loadMonster = () =>{
-//     let obstacleImg = new Image(); 
-//     obstacleImg.src = './images/woman.png'
-//     obstacleImg.onload = () => {
-//       this.monster = obstacleImg; 
-//       ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
-//     }
-//   }
+class Monster {
+  constructor(x,y, width, height){
+      this.x =x;
+      this.y =y;
+      this.width = width;
+      this.height = height;
+      this.monster = null;
+  }
+  loadMonster = () =>{
+    let obstacleImg = new Image(); 
+    obstacleImg.src = './images/orc.png'
+    obstacleImg.onload = () => {
+      this.monster = obstacleImg; 
+      ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+    }
+  }
 
-//   moveMonster = () => {
-//     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-//     this.x+=Math.random()*5*plusOrMinus;
-//     this.y++;
-//   }
+  moveMonster = () => {
+    //var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    //this.x+=Math.random()*5*plusOrMinus;
+    this.y++;
+  }
 
-//   drawMonster = () => {
-//     ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
-//   }
+  drawMonster = () => {
+    ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+  }
 
-// }
+}
 
 
-let road = new Road() 
+// let road = new Road() 
 
 let hero = new Player(250, 400, 64, 64) //Make my Player 
 hero.loadPlayer()
 
 
 
-// function addMonster(){
-//   ladies.push(new Monster(Math.random()*canvas.width, 0, 40, 50))
-// }
+function addMonster(){
+  ladies.push(new Monster(Math.random()*canvas.width, 0, 40, 50))
+}
 
 
-// function drawLadies() {
-//   ladies.forEach(girl=> {
-//     girl.loadMonster()
-//     girl.moveMonster()
-//     girl.drawMonster()
+function drawLadies() {
+  ladies.forEach(girl=> {
+    girl.loadMonster()
+    girl.moveMonster()
+    girl.drawMonster()
 
-//   })
-// }
+  })
+}
 
 
 
@@ -153,25 +153,25 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   ctx.clearRect(0,0,window.innerWidth, window.innerHeight)
 
 
-  road.drawRoad()
+  //road.drawRoad()
 
   hero.drawPlayer()
 
-  //drawLadies()
+  drawLadies()
 
-  ctx.fillStyle = "green";
-  //Left side border
-ctx.fillRect(0,0,40,550);
-//right side border
-ctx.fillRect(510,0,40,550);
-//bottom border
-ctx.fillRect(0,500,550,150);
+//   ctx.fillStyle = "green";
+//   //Left side border
+// ctx.fillRect(0,0,40,550);
+// //right side border
+// ctx.fillRect(510,0,40,550);
+// //bottom border
+// ctx.fillRect(0,500,550,150);
 
 
-  // if(frames % 66 === 0){
-  //   score.innerText = frames/33;
-  //   addMonster()
-  // }
+  if(frames % 66 === 0){
+    score.innerText = frames/33;
+    addMonster()
+  }
   if(frames % 66 === 0){
      score.innerText = frames/33;
 
