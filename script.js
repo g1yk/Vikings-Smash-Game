@@ -1,7 +1,7 @@
 let canvas = document.getElementById('game-board')
 
 canvas.width = 1000;
-canvas.height = 1000;
+canvas.height = 700;
 
 let ctx = canvas.getContext('2d')
 
@@ -82,13 +82,13 @@ class Monster {
 
 // let road = new Road() 
 
-let hero = new Player(250, 400, 64, 64) //Make my Player 
+let hero = new Player(500, 510, 64, 64) //Make my Player 
 hero.loadPlayer()
 
 
 
 function addMonster(){
-  ladies.push(new Monster(Math.random()*canvas.width, 0, 32, 32))
+  ladies.push(new Monster(Math.random()*canvas.width-5, 0, 32, 32))
 }
 
 
@@ -106,9 +106,31 @@ function drawLadies() {
 
 
 function checkCollision(aframe) {
-  ladies.forEach((Monster) => { //loop thru every Monster
+  // ladies.forEach((Monster) => { //loop thru every Monster
+  //   var rect1 = hero
+  //   var rect2 = Monster
+  
+  //   if (rect1.x < rect2.x + rect2.width &&
+  //     rect1.x + rect1.width > rect2.x &&
+  //     rect1.y < rect2.y + rect2.height &&
+  //     rect1.y + rect1.height > rect2.y) {
+  //       // collision detected!
+        
+  //       ladies.splice(this.Monster,1);
+  //       total+=100;
+  //       score.innerHTML=total;
+  //       console.log('collision')
+  //       window.cancelAnimationFrame(aframe)
+  //       return true;
+
+  //   }
+  
+  //   return false;
+  // })
+
+  for(i = 0;i<ladies.length;i++){
     var rect1 = hero
-    var rect2 = Monster
+    var rect2 = ladies[i]
   
     if (rect1.x < rect2.x + rect2.width &&
       rect1.x + rect1.width > rect2.x &&
@@ -116,7 +138,7 @@ function checkCollision(aframe) {
       rect1.y + rect1.height > rect2.y) {
         // collision detected!
         
-        ladies.shift();
+        ladies.splice(i,1);
         total+=100;
         score.innerHTML=total;
         console.log('collision')
@@ -124,27 +146,35 @@ function checkCollision(aframe) {
         return true;
 
     }
-    // if(rect2.y >500){
-    //   Monster.splice(Monster,1)
-    // }
+  
     return false;
-  })
+  }
 
-}
+  }
+
+
 
 function gameControls(e) {
-  if(e.key == 'w'&&hero.y>0){
-    hero.movePlayer('y', -10)
+  // if(e.key == 'w'&&hero.y>0){
+  //   hero.movePlayer('y', -15)
+  // }
+  // if(e.key == 's'&&hero.y<510){
+  //   hero.movePlayer('y', 15)
+  // }
+  if(e.key == 'D'&&hero.x<934){
+    hero.movePlayer('x', 60)
   }
-  if(e.key == 's'&&hero.y<510){
-    hero.movePlayer('y', 10)
+  if(e.key == 'A'&&hero.x>5){
+    hero.movePlayer('x' ,-60)
   }
-  if(e.key == 'd'&&hero.y<540){
-    hero.movePlayer('x', 10)
+
+  if(e.key == 'd'&&hero.x<934){
+    hero.movePlayer('x', 15)
   }
-  if(e.key == 'a'&&hero.y>0){
-    hero.movePlayer('x' ,-10)
+  if(e.key == 'a'&&hero.x>5){
+    hero.movePlayer('x' ,-15)
   }
+
 
 }
 
