@@ -9,7 +9,8 @@ document.onkeydown = gameControls
 
 let ladies = []
 
-
+let score = document.getElementById('score')
+let total = 0;
 
 // class Road {
 //   drawRoad = () => {
@@ -114,7 +115,10 @@ function checkCollision(aframe) {
       rect1.y < rect2.y + rect2.height &&
       rect1.y + rect1.height > rect2.y) {
         // collision detected!
+        
         ladies.shift();
+        total+=100;
+        score.innerHTML=total;
         console.log('collision')
         window.cancelAnimationFrame(aframe)
         return true;
@@ -148,8 +152,7 @@ function gameControls(e) {
 
 
 
-let score = document.getElementById('score')
-console
+
 let frames = 0; 
 
 function animate() { //lifeblood of your canvas app.  This cycle forever, clears everything and redraws everything
@@ -177,11 +180,10 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
 
   if(frames % 99 === 0){
-    score.innerText = frames/33;
+    
     addMonster()
   }
-  if(frames % 66 === 0){
-     score.innerText = frames/33;
+  
 
   // if(checkCollision(aframe)){ //I hit the Monster 
   //   window.cancelAnimationFrame(aframe)
@@ -190,7 +192,7 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   
   console.log(ladies.length)
 
-}
+
 
 
 //Start button 
