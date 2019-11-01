@@ -114,6 +114,7 @@ function checkCollision(aframe) {
       rect1.y < rect2.y + rect2.height &&
       rect1.y + rect1.height > rect2.y) {
         // collision detected!
+        ladies.shift();
         console.log('collision')
         window.cancelAnimationFrame(aframe)
         return true;
