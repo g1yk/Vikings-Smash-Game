@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="stylesheet" href="./index.css">
-</head>
-<body onload="startGame()">
-<canvas id= "canvas" width="550px" height ="550px"></canvas>
-<!-- <div style="text-align:center;width:480px;">
-  <button onmousedown="moveup()" onmouseup="clearmove()" ontouchstart="moveup()">UP</button><br><br>
-  <button onmousedown="moveleft()" onmouseup="clearmove()" ontouchstart="moveleft()">LEFT</button>
-  <button onmousedown="moveright()" onmouseup="clearmove()" ontouchstart="moveright()">RIGHT</button><br><br>
-  <button onmousedown="movedown()" onmouseup="clearmove()" ontouchstart="movedown()">DOWN</button>
-</div> -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <div class="game-intro">
+    <img src="./images/logo.png" alt="" class="logo-img">
+    <br>
+    <button id="start-button">StartGame</button>
+    <p>Use the left and right arrow to control the car!</p>
+    <img src="./images/arrows.png" alt="" class="arrows-img">
+  </div> -->
+  <div id="score">0</div>
+  <canvas id="game-board"></canvas>
 </body>
 <script type="text/javascript" src="script.js"></script>
+
 </html>

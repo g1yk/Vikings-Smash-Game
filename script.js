@@ -1,140 +1,200 @@
+let canvas = document.getElementById('game-board')
+
+canvas.width = 550;
+canvas.height = 550;
+
+let ctx = canvas.getContext('2d')
+
+document.onkeydown = gameControls
+
+let ladies = []
 
 
-var myGamePiece;
-var myObstacle;
 
-function startGame() {
-    myGamePiece = new component(30, 30, "red", 10, 120);
-    myObstacle  = new component(10, 200, "green", 300, 120);    
-    myGameArea.start();
+class Road {
+  drawRoad = () => {
+    ctx.fillStyle="#bbb"
+    ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
+  }
 }
 
-var myGameArea = {
-    canvas : document.querySelector("canvas"),
-    start : function() {
-        this.canvas.width = 550;
-        this.canvas.height = 550;
-        this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 20);
-    },
-    clear : function() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    },
-    stop : function() {
-        clearInterval(this.interval);
-    }
-}
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-ctx.fillStyle = "green";
-//Left side border
-ctx.fillRect(0,0,40,550);
-//right side border
-ctx.fillRect(510,0,40,550);
-//bottom border
-ctx.fillRect(0,400,550,150);
 
-function component(width, height, color, x, y) {
+class Car {
+  constructor(x,y,width,height){
+    this.x = x;
+    this.y = y;
     this.width = width;
     this.height = height;
-    this.speedX = 0;
-    this.speedY = 0;    
-    this.x = x;
-    this.y = y;    
-    this.update = function() {
-        ctx = myGameArea.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-ctx.fillStyle = "green";
-//Left side border
+  }
+  loadCar = () => {
+    let img = new Image();
+    img.src = './images/warrior.png'
+    
+    img.onload = () => {
+      this.img = img; 
+      this.drawCar()
+    }
+  }
+  moveCar = (direction, value) => {
+    this[direction] += value; 
+  }
+  drawCar = () => {
+    ctx.drawImage(this.img, this.x,this.y,this.width,this.height)
+  }
+} 
+
+class Lady {
+  constructor(x,y, width, height){
+      this.x =x;
+      this.y =y;
+      this.width = width;
+      this.height = height;
+      this.lady = null;
+  }
+  loadLady = () =>{
+    let obstacleImg = new Image(); 
+    obstacleImg.src = './images/woman.png'
+    obstacleImg.onload = () => {
+      this.lady = obstacleImg; 
+      ctx.drawImage(this.lady, this.x, this.y, this.width, this.height)
+    }
+  }
+
+  moveLady = () => {
+    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    this.x+=Math.random()*5*plusOrMinus;
+    this.y++;
+  }
+
+  drawLady = () => {
+    ctx.drawImage(this.lady, this.x, this.y, this.width, this.height)
+  }
+
+}
+
+
+let road = new Road() 
+
+let camero = new Car(250, 400, 40, 80) //Make my car 
+camero.loadCar()
+
+
+
+function addLady(){
+  ladies.push(new Lady(Math.random()*canvas.width, 0, 40, 50))
+}
+
+
+function drawLadies() {
+  ladies.forEach(girl=> {
+    girl.loadLady()
+    girl.moveLady()
+    girl.drawLady()
+
+  })
+}
+
+
+
+
+
+function checkCollision(aframe) {
+  ladies.forEach((lady) => { //loop thru every lady
+    var rect1 = camero
+    var rect2 = lady
+  
+    if (rect1.x < rect2.x + rect2.width &&
+      rect1.x + rect1.width > rect2.x &&
+      rect1.y < rect2.y + rect2.height &&
+      rect1.y + rect1.height > rect2.y) {
+        // collision detected!
+        console.log('collision')
+        window.cancelAnimationFrame(aframe)
+        return true;
+
+    }
+    // if(rect2.y >500){
+    //   Lady.splice(lady,1)
+    // }
+    return false;
+  })
+
+}
+
+function gameControls(e) {
+  if(e.key == 'ArrowUp'&&camero.y>0){
+    camero.moveCar('y', -10)
+  }
+  if(e.key == 'ArrowDown'&&camero.y<510){
+    camero.moveCar('y', 10)
+  }
+  if(e.key == 'ArrowRight'&&camero.y<540){
+    camero.moveCar('x', 10)
+  }
+  if(e.key == 'ArrowLeft'&&camero.y>0){
+    camero.moveCar('x' ,-10)
+  }
+
+}
+
+
+
+
+
+let score = document.getElementById('score')
+console
+let frames = 0; 
+
+function animate() { //lifeblood of your canvas app.  This cycle forever, clears everything and redraws everything
+
+  frames++;
+
+  let aframe = window.requestAnimationFrame(animate)
+  ctx.clearRect(0,0,window.innerWidth, window.innerHeight)
+
+
+  road.drawRoad()
+
+  camero.drawCar()
+
+  drawLadies()
+
+  ctx.fillStyle = "green";
+  //Left side border
 ctx.fillRect(0,0,40,550);
 //right side border
 ctx.fillRect(510,0,40,550);
 //bottom border
-ctx.fillRect(0,440,550,150);
-    }
-    // this.crashWith = function(otherobj) {
-    //     var myleft = this.x;
-    //     var myright = this.x + (this.width);
-    //     var mytop = this.y;
-    //     var mybottom = this.y + (this.height);
-    //     var otherleft = otherobj.x;
-    //     var otherright = otherobj.x + (otherobj.width);
-    //     var othertop = otherobj.y;
-    //     var otherbottom = otherobj.y + (otherobj.height);
-    //     var crash = true;
-    //     if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
-    //         crash = false;
-    //     }
-    //     return crash;
-    // }
-}
+ctx.fillRect(0,500,550,150);
 
-function updateGameArea() {
+
+  if(frames % 66 === 0){
+    score.innerText = frames/33;
+    addLady()
+  }
+
+  if(checkCollision(aframe)){ //I hit the lady 
+    window.cancelAnimationFrame(aframe)
     
-        myGameArea.clear();
-        myObstacle.update();
-        myGamePiece.x += myGamePiece.speedX;
-        myGamePiece.y += myGamePiece.speedY;    
-        myGamePiece.update();
-    }
+  }
+  
+  
 
-
-function moveup() {
-    if(myGamePiece.y>0)
-    myGamePiece.y-=5; 
-    else
-    myGamePiece.y+= 0;
 }
 
-function movedown() {
-    if(myGamePiece.y<400)
-    myGamePiece.y+=5; 
-    else{
-        myGamePiece.y+= 0;
-        console.log("can't move")
-    }
-}
 
-function moveleft() {
-    if(myGamePiece.x>40)
-    myGamePiece.x-=5; 
-    else
-    myGamePiece.x += 0;
-}
+//Start button 
+setTimeout(animate, 1000)
 
-function moveright() {
-    if(myGamePiece.x<510)
-    myGamePiece.x+=5; 
-    else
-    myGamePiece.x += 0;
-}
 
-// function clearmove() {
-//     myGamePiece.speedX = 0; 
-//     myGamePiece.speedY = 0; 
-// }
 
-function logKey(e) {
-    switch (e.key) {
-        case 'w':
-            moveup();
-            break;
-        case 's':
-            movedown()
-            break;
-        case 'a':
-            moveleft()
-            break;
-        case 'd':
-            moveright()
-            break;
-        default:
-            break;      
-    }
-}
 
-document.addEventListener('keydown', logKey);
+
+
+
+
+
+
+
+ 
+
