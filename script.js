@@ -160,8 +160,6 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   drawLadies()
 
   checkCollision();
-
-  // hero.checkCollision();
 //   ctx.fillStyle = "green";
 //   //Left side border
 // ctx.fillRect(0,0,40,550);
