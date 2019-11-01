@@ -63,7 +63,13 @@ class Monster {
   moveMonster = () => {
     //var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     //this.x+=Math.random()*5*plusOrMinus;
+    console.log(this)
+
     this.y++;
+    if(this.y >400){
+      debugger
+      ladies.shift();
+    }
   }
 
   drawMonster = () => {
@@ -81,7 +87,7 @@ hero.loadPlayer()
 
 
 function addMonster(){
-  ladies.push(new Monster(Math.random()*canvas.width, 0, 40, 50))
+  ladies.push(new Monster(Math.random()*(canvas.width-40), 0, 40, 50))
   console.log(ladies.length)
 }
 
@@ -169,7 +175,7 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 // ctx.fillRect(0,500,550,150);
 
 
-  if(frames % 66 === 0){
+  if(frames % 99 === 0){
     score.innerText = frames/33;
     addMonster()
   }
@@ -181,7 +187,7 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
     
   }
   
-  
+  console.log(ladies.length)
 
 }
 
