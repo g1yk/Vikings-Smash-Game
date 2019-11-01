@@ -1,7 +1,7 @@
 let canvas = document.getElementById('game-board')
 
-canvas.width = 550;
-canvas.height = 550;
+canvas.width = 1000;
+canvas.height = 1000;
 
 let ctx = canvas.getContext('2d')
 
