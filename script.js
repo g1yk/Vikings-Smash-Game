@@ -67,7 +67,7 @@ class Monster {
     console.log(this)
 
     this.y++;
-    if(this.y >600){
+    if(this.y >700){
       
       ladies.shift();
     }
@@ -82,7 +82,7 @@ class Monster {
 
 // let road = new Road() 
 
-let hero = new Player(500, 510, 64, 64) //Make my Player 
+let hero = new Player(500, 636, 64, 64) //Make my Player 
 hero.loadPlayer()
 
 

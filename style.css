@@ -38,7 +38,7 @@ body button {
     padding: 20px 0px;
     border: 3px solid black;
     background-image: url(./images/minecraft\ house.jpg);
-    background-size: contain;
+    background-size: cover;
     justify-content: center;
     align-self: center;
     background-repeat: no-repeat;
