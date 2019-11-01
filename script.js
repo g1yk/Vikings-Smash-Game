@@ -82,10 +82,11 @@ hero.loadPlayer()
 
 function addMonster(){
   ladies.push(new Monster(Math.random()*canvas.width, 0, 40, 50))
+  console.log(ladies.length)
 }
 
 
-function drawLadies() {
+function drawMonster() {
   ladies.forEach(girl=> {
     girl.loadMonster()
     girl.moveMonster()
@@ -157,7 +158,7 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
   hero.drawPlayer()
 
-  drawLadies()
+  drawMonster()
 
 //   ctx.fillStyle = "green";
 //   //Left side border
