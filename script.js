@@ -53,7 +53,7 @@ class Monster {
   }
   loadMonster = () =>{
     let obstacleImg = new Image(); 
-    obstacleImg.src = './images/orc.png'
+    obstacleImg.src = './images/rock.png'
     obstacleImg.onload = () => {
       this.monster = obstacleImg; 
       ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
@@ -87,12 +87,11 @@ hero.loadPlayer()
 
 
 function addMonster(){
-  ladies.push(new Monster(Math.random()*(canvas.width-40), 0, 40, 50))
-  console.log(ladies.length)
+  ladies.push(new Monster(Math.random()*canvas.width, 0, 32, 32))
 }
 
 
-function drawMonster() {
+function drawLadies() {
   ladies.forEach(girl=> {
     girl.loadMonster()
     girl.moveMonster()
@@ -164,8 +163,9 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
   hero.drawPlayer()
 
-  drawMonster()
+  drawLadies()
 
+  checkCollision();
 //   ctx.fillStyle = "green";
 //   //Left side border
 // ctx.fillRect(0,0,40,550);
