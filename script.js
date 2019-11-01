@@ -19,89 +19,92 @@ class Road {
 }
 
 
-class Car {
+class Player {
   constructor(x,y,width,height){
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
   }
-  loadCar = () => {
-    let img = new Image();
-    img.src = './images/warrior.png'
+  loadPlayer = () => {
+    let img = coinImage
+    //let img = new Image();
+    //img.src = './images/warrior.png'
+    coinImage.addEventListener("load", gameLoop);
+	  coinImage.src = "images/walking-right2.png";
     
     img.onload = () => {
       this.img = img; 
-      this.drawCar()
+      this.drawPlayer()
     }
   }
-  moveCar = (direction, value) => {
+  movePlayer = (direction, value) => {
     this[direction] += value; 
   }
-  drawCar = () => {
+  drawPlayer = () => {
     ctx.drawImage(this.img, this.x,this.y,this.width,this.height)
   }
 } 
 
-class Lady {
-  constructor(x,y, width, height){
-      this.x =x;
-      this.y =y;
-      this.width = width;
-      this.height = height;
-      this.lady = null;
-  }
-  loadLady = () =>{
-    let obstacleImg = new Image(); 
-    obstacleImg.src = './images/woman.png'
-    obstacleImg.onload = () => {
-      this.lady = obstacleImg; 
-      ctx.drawImage(this.lady, this.x, this.y, this.width, this.height)
-    }
-  }
+// class Monster {
+//   constructor(x,y, width, height){
+//       this.x =x;
+//       this.y =y;
+//       this.width = width;
+//       this.height = height;
+//       this.monster = null;
+//   }
+//   loadMonster = () =>{
+//     let obstacleImg = new Image(); 
+//     obstacleImg.src = './images/woman.png'
+//     obstacleImg.onload = () => {
+//       this.monster = obstacleImg; 
+//       ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+//     }
+//   }
 
-  moveLady = () => {
-    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-    this.x+=Math.random()*5*plusOrMinus;
-    this.y++;
-  }
+//   moveMonster = () => {
+//     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+//     this.x+=Math.random()*5*plusOrMinus;
+//     this.y++;
+//   }
 
-  drawLady = () => {
-    ctx.drawImage(this.lady, this.x, this.y, this.width, this.height)
-  }
+//   drawMonster = () => {
+//     ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+//   }
 
-}
+// }
 
 
 let road = new Road() 
 
-let camero = new Car(250, 400, 40, 80) //Make my car 
-camero.loadCar()
+let hero = new Player(250, 400, 64, 64) //Make my Player 
+hero.loadPlayer()
 
 
 
-function addLady(){
-  ladies.push(new Lady(Math.random()*canvas.width, 0, 40, 50))
-}
+// function addMonster(){
+//   ladies.push(new Monster(Math.random()*canvas.width, 0, 40, 50))
+// }
 
 
-function drawLadies() {
-  ladies.forEach(girl=> {
-    girl.loadLady()
-    girl.moveLady()
-    girl.drawLady()
+// function drawLadies() {
+//   ladies.forEach(girl=> {
+//     girl.loadMonster()
+//     girl.moveMonster()
+//     girl.drawMonster()
 
-  })
-}
+//   })
+// }
 
 
 
 
 
 function checkCollision(aframe) {
-  ladies.forEach((lady) => { //loop thru every lady
-    var rect1 = camero
-    var rect2 = lady
+  ladies.forEach((Monster) => { //loop thru every Monster
+    var rect1 = hero
+    var rect2 = Monster
   
     if (rect1.x < rect2.x + rect2.width &&
       rect1.x + rect1.width > rect2.x &&
@@ -114,7 +117,7 @@ function checkCollision(aframe) {
 
     }
     // if(rect2.y >500){
-    //   Lady.splice(lady,1)
+    //   Monster.splice(Monster,1)
     // }
     return false;
   })
@@ -122,17 +125,17 @@ function checkCollision(aframe) {
 }
 
 function gameControls(e) {
-  if(e.key == 'ArrowUp'&&camero.y>0){
-    camero.moveCar('y', -10)
+  if(e.key == 'w'&&hero.y>0){
+    hero.movePlayer('y', -10)
   }
-  if(e.key == 'ArrowDown'&&camero.y<510){
-    camero.moveCar('y', 10)
+  if(e.key == 's'&&hero.y<510){
+    hero.movePlayer('y', 10)
   }
-  if(e.key == 'ArrowRight'&&camero.y<540){
-    camero.moveCar('x', 10)
+  if(e.key == 'd'&&hero.y<540){
+    hero.movePlayer('x', 10)
   }
-  if(e.key == 'ArrowLeft'&&camero.y>0){
-    camero.moveCar('x' ,-10)
+  if(e.key == 'a'&&hero.y>0){
+    hero.movePlayer('x' ,-10)
   }
 
 }
@@ -155,9 +158,9 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
   road.drawRoad()
 
-  camero.drawCar()
+  hero.drawPlayer()
 
-  drawLadies()
+  //drawLadies()
 
   ctx.fillStyle = "green";
   //Left side border
@@ -168,13 +171,15 @@ ctx.fillRect(510,0,40,550);
 ctx.fillRect(0,500,550,150);
 
 
+  // if(frames % 66 === 0){
+  //   score.innerText = frames/33;
+  //   addMonster()
+  // }
   if(frames % 66 === 0){
-    score.innerText = frames/33;
-    addLady()
-  }
+     score.innerText = frames/33;
 
-  if(checkCollision(aframe)){ //I hit the lady 
-    window.cancelAnimationFrame(aframe)
+  // if(checkCollision(aframe)){ //I hit the Monster 
+  //   window.cancelAnimationFrame(aframe)
     
   }
   
