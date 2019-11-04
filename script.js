@@ -3,6 +3,7 @@ let canvas = document.getElementById('game-board')
 canvas.width = 1000;
 canvas.height = 700;
 let backgroundMusic;
+coinSound = new sound ("./sounds/coinSound.wav");
 
 let ctx = canvas.getContext('2d')
 
@@ -103,6 +104,21 @@ function drawLadies() {
   })
 }
 
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+  this.play = function(){
+    this.sound.play();
+  }
+  this.stop = function(){
+    this.sound.pause();
+  }
+}
+
 
 
 
@@ -143,6 +159,7 @@ function checkCollision(aframe) {
         ladies.splice(i,1);
         total+=100;
         score.innerHTML=total;
+        coinSound.play();
         console.log('collision')
         window.cancelAnimationFrame(aframe)
         return true;
