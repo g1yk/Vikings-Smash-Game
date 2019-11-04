@@ -297,8 +297,8 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
   if(health <= 0){
     //window.cancelAnimationFrame(aframe);
-    confirm("you lose")
-    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+    //confirm("you lose")
+    //if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
   }
 
 
