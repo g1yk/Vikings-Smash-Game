@@ -5,6 +5,7 @@ canvas.height = 700;
 backgroundMusic = new sound ("./sounds/backgroundMusic.ogg");
 backgroundMusic.play();
 coinSound = new sound ("./sounds/coinSound.wav");
+laserShoot = new sound ("./sounds/laserShoot.wav");
 
 let ctx = canvas.getContext('2d')
 
@@ -113,10 +114,13 @@ let laserTotal = 2
 let lasers = [];
 
 function drawLaser() {
+
   if (lasers.length)
+  laserShoot.play();
     for (var i = 0; i < lasers.length; i++) {
       ctx.fillStyle = '#f00';
       ctx.fillRect(lasers[i][0],lasers[i][1],lasers[i][2],lasers[i][3])
+      
     }
 }
 
@@ -301,8 +305,8 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
   if(health <= 0){
     //window.cancelAnimationFrame(aframe);
-    confirm("you lose")
-    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+    //confirm("you lose")
+    //if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
   }
 
 
@@ -310,6 +314,21 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   
   //console.log(ladies.length)
 
+  if(health <= 0){
+    //window.cancelAnimationFrame(aframe);
+    confirm("you lose")
+    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+  }
+
+
+  
+  
+  //console.log(ladies.length)
+
+function Start(){
+
+  setTimeout(animate, 1000)
+}
 
 
 function Start(){
