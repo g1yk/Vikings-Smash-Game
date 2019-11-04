@@ -6,6 +6,7 @@ backgroundMusic = new sound ("./sounds/backgroundMusic.ogg");
 backgroundMusic.play();
 coinSound = new sound ("./sounds/coinSound.wav");
 laserShoot = new sound ("./sounds/laserShoot.wav");
+boom = new sound ("./sounds/boom.wav");
 
 
 let ctx = canvas.getContext('2d')
@@ -191,6 +192,7 @@ function hitTest() {
           lasers[i][1] + lasers[i][3] > rect2.y) {
         remove = true;
          ladies.splice(j, 1);
+         boom.play();
          total+=100;
          score.innerHTML=total;
                                //  ladies.push([(Math.random() * 500) + 50, -45, enemy_w, enemy_h, speed]);
