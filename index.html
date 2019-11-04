@@ -9,16 +9,37 @@
   <title>Document</title>
 </head>
 <body>
-  <!-- <div class="game-intro">
-    <img src="./images/logo.png" alt="" class="logo-img">
-    <br>
-    <button id="start-button">StartGame</button>
-    <p>Use the left and right arrow to control the car!</p>
-    <img src="./images/arrows.png" alt="" class="arrows-img">
-  </div> -->
-  <div id="score">0</div>
-  <canvas id="game-board"></canvas>
+    <div id="SplashScreen">
+        <h1>Dota 3</h1>
+        
+        <button onclick="myFunction();Start()">Start</button>
+        </div>
+        
+  <div id="score" style="display: none;">0</div>
+  <canvas id="game-board" style="display: none;">Game Stuff</canvas>
 </body>
 <script type="text/javascript" src="script.js"></script>
+<script>
+    function myFunction() {
+    var x = document.getElementById("SplashScreen");
+    let y = document.getElementById("game-board");
+    let z = document.getElementById("score");
+    if (x.style.display === "none") {
+    x.style.display = "block";
+   } else {
+     x.style.display = "none";
+    }
+    if (y.style.display === "none") {
+    y.style.display = "block";
+   } else {
+     y.style.display = "none";
+    }
+    if (z.style.display === "none") {
+    z.style.display = "block";
+   } else {
+     z.style.display = "none";
+    }
+    }
+</script>
 
 </html>
