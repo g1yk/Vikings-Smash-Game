@@ -14,6 +14,7 @@ let ladies = []
 
 let score = document.getElementById('score')
 let total = 0;
+let health = 3;
 
 // class Road {
 //   drawRoad = () => {
@@ -67,12 +68,15 @@ class Monster {
   moveMonster = () => {
     //var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     //this.x+=Math.random()*5*plusOrMinus;
-    console.log(this)
+    //console.log(this)
 
     this.y++;
     if(this.y >700){
       total-=100;
       score.innerHTML=total;
+      health-=1;
+      console.log(health);
+      
       ladies.shift();
     }
   }
@@ -143,15 +147,19 @@ function hitTest() {
           lasers[i][1] + lasers[i][3] > rect2.y) {
         remove = true;
          ladies.splice(j, 1);
+         total+=100;
+         score.innerHTML=total;
                                //  ladies.push([(Math.random() * 500) + 50, -45, enemy_w, enemy_h, speed]);
        }
      }
      if (remove == true) {
        lasers.splice(i, 1);
+  
        remove = false;
      }
    }
  }
+
 
   
  
@@ -278,13 +286,7 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   moveLaser()
   drawLaser()
   hitTest()
-//   ctx.fillStyle = "green";
-//   //Left side border
-// ctx.fillRect(0,0,40,550);
-// //right side border
-// ctx.fillRect(510,0,40,550);
-// //bottom border
-// ctx.fillRect(0,500,550,150);
+
 
 
   if(frames % 99 === 0){
@@ -293,28 +295,33 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   }
   
 
-  // if(checkCollision(aframe)){ //I hit the Monster 
-  //   window.cancelAnimationFrame(aframe)
-    
+  if(checkCollision(aframe)){ //I hit the Monster 
+    window.cancelAnimationFrame(aframe)
+  }
+
+  if(health <= 0){
+    //window.cancelAnimationFrame(aframe);
+    confirm("you lose")
+    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+  }
+
+
   }
   
-  console.log(ladies.length)
+  //console.log(ladies.length)
 
 
 
+function Start(){
 
-//Start button 
-setTimeout(animate, 1000)
-
-
-
-
-
+  setTimeout(animate, 1000)
+}
 
 
 
 
 
 
- 
+
+
 
