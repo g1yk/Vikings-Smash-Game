@@ -5,6 +5,7 @@ canvas.height = 700;
 backgroundMusic = new sound ("./sounds/backgroundMusic.ogg");
 backgroundMusic.play();
 coinSound = new sound ("./sounds/coinSound.wav");
+laserShoot = new sound ("./sounds/laserShoot.wav");
 
 let ctx = canvas.getContext('2d')
 
@@ -113,10 +114,13 @@ let laserTotal = 2
 let lasers = [];
 
 function drawLaser() {
+
   if (lasers.length)
+  
     for (var i = 0; i < lasers.length; i++) {
       ctx.fillStyle = '#f00';
       ctx.fillRect(lasers[i][0],lasers[i][1],lasers[i][2],lasers[i][3])
+      
     }
 }
 
@@ -128,6 +132,7 @@ function moveLaser() {
       lasers.splice(i, 1);
     }
   }
+  
 }
 
 
@@ -147,15 +152,19 @@ function hitTest() {
           lasers[i][1] + lasers[i][3] > rect2.y) {
         remove = true;
          ladies.splice(j, 1);
+         total+=100;
+         score.innerHTML=total;
                                //  ladies.push([(Math.random() * 500) + 50, -45, enemy_w, enemy_h, speed]);
        }
      }
      if (remove == true) {
        lasers.splice(i, 1);
+  
        remove = false;
      }
    }
  }
+
 
   
  
@@ -252,6 +261,7 @@ function gameControls(e) {
   }
   if (e.key == 'j' && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
+    laserShoot.play();
   }  
 
 
@@ -306,7 +316,21 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   
   //console.log(ladies.length)
 
+  if(health <= 0){
+    //window.cancelAnimationFrame(aframe);
+    confirm("you lose")
+    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+  }
 
+
+  
+  
+  //console.log(ladies.length)
+
+function Start(){
+
+  setTimeout(animate, 1000)
+}
 
 
 function Start(){
@@ -321,8 +345,4 @@ function Start(){
 
 
 
-
-
-
- 
 
