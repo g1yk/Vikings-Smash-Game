@@ -14,7 +14,7 @@ let ctx = canvas.getContext('2d')
 document.onkeydown = gameControls
 
 let ladies = []
-
+let diamonds = []
 let score = document.getElementById('score')
 let total = 0;
 let health = 3;
@@ -59,7 +59,7 @@ class Monster {
       this.height = height;
       this.monster = null;
   }
-  loadMonster = () =>{
+  loadRock = () =>{
     let obstacleImg = new Image(); 
     obstacleImg.src = './images/rock.png'
     obstacleImg.onload = () => {
@@ -67,8 +67,16 @@ class Monster {
       ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
     }
   }
+  loadDiamond = () =>{
+    let obstacleImg = new Image(); 
+    obstacleImg.src = './images/diamond1.png'
+    obstacleImg.onload = () => {
+      this.monster = obstacleImg; 
+      ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+    }
+  }
 
-  moveMonster = () => {
+  moveRock = () => {
     //var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     //this.x+=Math.random()*5*plusOrMinus;
     //console.log(this)
@@ -83,31 +91,60 @@ class Monster {
       ladies.shift();
     }
   }
+  moveDiamond = () => {
+    //var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    //this.x+=Math.random()*5*plusOrMinus;
+    //console.log(this)
 
-  drawMonster = () => {
+    this.y++;
+    if(this.y >700){
+      
+    
+      
+      diamonds.shift();
+    }
+  }
+
+  drawRock = () => {
+    ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+  }
+
+  drawDiamond = () => {
     ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
   }
 
 }
 
 
-// let road = new Road() 
 
 let hero = new Player(500, 636, 64, 64) //Make my Player 
 hero.loadPlayer()
 
 
 
-function addMonster(){
+function addRock(){
   ladies.push(new Monster(Math.random()*canvas.width-5, 0, 32, 32))
+}
+function addDiamond(){
+  diamonds.push(new Monster(Math.random()*canvas.width-5, 0, 32, 32))
 }
 
 
 function drawLadies() {
-  ladies.forEach(girl=> {
-    girl.loadMonster()
-    girl.moveMonster()
-    girl.drawMonster()
+  ladies.forEach(rock=> {
+    rock.loadRock()
+    rock.moveRock()
+    rock.drawRock()
+   
+
+  })
+}
+
+function drawGem() {
+  diamonds.forEach(gem=> {
+    gem.loadDiamond()
+    gem.moveDiamond()
+    gem.drawDiamond()
 
   })
 }
@@ -192,27 +229,7 @@ function sound(src) {
 
 
 function checkCollision(aframe) {
-  // ladies.forEach((Monster) => { //loop thru every Monster
-  //   var rect1 = hero
-  //   var rect2 = Monster
-  
-  //   if (rect1.x < rect2.x + rect2.width &&
-  //     rect1.x + rect1.width > rect2.x &&
-  //     rect1.y < rect2.y + rect2.height &&
-  //     rect1.y + rect1.height > rect2.y) {
-  //       // collision detected!
-        
-  //       ladies.splice(this.Monster,1);
-  //       total+=100;
-  //       score.innerHTML=total;
-  //       console.log('collision')
-  //       window.cancelAnimationFrame(aframe)
-  //       return true;
-
-  //   }
-  
-  //   return false;
-  // })
+ 
 
   for(i = 0;i<ladies.length;i++){
     var rect1 = hero
@@ -236,8 +253,35 @@ function checkCollision(aframe) {
   
     return false;
   }
-
+  
   }
+
+function checkCollision2(aframe){
+
+  for(i = 0;i<diamonds.length;i++){
+    var rect1 = hero
+    var rect2 = diamonds[i]
+  
+    if (rect1.x < rect2.x + rect2.width &&
+      rect1.x + rect1.width > rect2.x &&
+      rect1.y < rect2.y + rect2.height &&
+      rect1.y + rect1.height > rect2.y) {
+        // collision detected!
+        
+        diamonds.splice(i,1);
+        total+=300;
+        score.innerHTML=total;
+        coinSound.play();
+        console.log('collision')
+        window.cancelAnimationFrame(aframe)
+        return true;
+
+    }
+  
+    return false;
+  }
+
+}  
 
 
 
@@ -261,14 +305,13 @@ function gameControls(e) {
   if(e.key == 'a'&&hero.x>5){
     hero.movePlayer('x' ,-15)
   }
-  if (e.key == 'x' && lasers.length <= laserTotal) {
+  if ((e.key == 'j'|| e.key == 'J')&& lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
     laserShoot.play();
   }  
 
 
 }
-
 
 
 
@@ -289,8 +332,10 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   hero.drawPlayer()
 
   drawLadies()
+  drawGem();
 
   checkCollision();
+  checkCollision2();
   moveLaser()
   drawLaser()
   hitTest()
@@ -299,13 +344,19 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
   if(frames % 99 === 0){
     
-    addMonster()
+    addRock()
+    
   }
+  if(frames % 270 === 0){
+    
+    addDiamond()
+  }
+
   
 
-  if(checkCollision(aframe)){ //I hit the Monster 
-    window.cancelAnimationFrame(aframe)
-  }
+  // if(checkCollision(aframe)){ //I hit the Monster 
+  //   window.cancelAnimationFrame(aframe)
+  // }
 
   if(health <= 0){
     //window.cancelAnimationFrame(aframe);
@@ -315,14 +366,6 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
 
   }
-  
-  //console.log(ladies.length)
-
-  if(health <= 0){
-    //window.cancelAnimationFrame(aframe);
-    confirm("you lose")
-    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
-  }
 
 
   
@@ -334,11 +377,6 @@ function Start(){
   setTimeout(animate, 1000)
 }
 
-
-function Start(){
-
-  setTimeout(animate, 1000)
-}
 
 
 
