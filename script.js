@@ -105,6 +105,58 @@ function drawLadies() {
   })
 }
 
+let laserTotal = 2
+let lasers = [];
+
+function drawLaser() {
+  if (lasers.length)
+    for (var i = 0; i < lasers.length; i++) {
+      ctx.fillStyle = '#f00';
+      ctx.fillRect(lasers[i][0],lasers[i][1],lasers[i][2],lasers[i][3])
+    }
+}
+
+function moveLaser() {
+  for (var i = 0; i < lasers.length; i++) {
+    if (lasers[i][1] > -11) {
+      lasers[i][1] -= 10;
+    } else if (lasers[i][1] < -10) {
+      lasers.splice(i, 1);
+    }
+  }
+}
+
+
+
+function hitTest() {
+  let remove = false;
+  for (var i = 0; i < lasers.length; i++) {
+    for (var j = 0; j < ladies.length; j++) {
+      console.log(lasers[i][1])
+      // if (lasers[i][1] <= ladies[j].y && lasers[i][0] <= ladies[j].x) {
+
+        var rect2 = ladies[j]
+
+        if (lasers[i][0] < rect2.x + rect2.width &&
+          lasers[i][0] + lasers[i][2] > rect2.x &&
+          lasers[i][1] < rect2.y + rect2.height &&
+          lasers[i][1] + lasers[i][3] > rect2.y) {
+        remove = true;
+         ladies.splice(j, 1);
+                               //  ladies.push([(Math.random() * 500) + 50, -45, enemy_w, enemy_h, speed]);
+       }
+     }
+     if (remove == true) {
+       lasers.splice(i, 1);
+       remove = false;
+     }
+   }
+ }
+
+  
+ 
+
+
 function sound(src) {
   this.sound = document.createElement("audio");
   this.sound.src = src;
@@ -194,6 +246,9 @@ function gameControls(e) {
   if(e.key == 'a'&&hero.x>5){
     hero.movePlayer('x' ,-15)
   }
+  if (e.key == 'x' && lasers.length <= laserTotal) {
+    lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
+  }  
 
 
 }
@@ -220,6 +275,9 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   drawLadies()
 
   checkCollision();
+  moveLaser()
+  drawLaser()
+  hitTest()
 //   ctx.fillStyle = "green";
 //   //Left side border
 // ctx.fillRect(0,0,40,550);
