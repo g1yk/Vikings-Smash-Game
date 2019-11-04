@@ -2,7 +2,8 @@ let canvas = document.getElementById('game-board')
 
 canvas.width = 1000;
 canvas.height = 700;
-let backgroundMusic;
+backgroundMusic = new sound ("./sounds/backgroundMusic.ogg");
+backgroundMusic.play();
 coinSound = new sound ("./sounds/coinSound.wav");
 
 let ctx = canvas.getContext('2d')
