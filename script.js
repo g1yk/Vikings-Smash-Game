@@ -305,7 +305,7 @@ function gameControls(e) {
   if(e.key == 'a'&&hero.x>5){
     hero.movePlayer('x' ,-15)
   }
-  if ((e.key == 'j'|| e.key == 'J')&& lasers.length <= laserTotal) {
+  if (e.keyCode == 32 && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
     laserShoot.play();
   }  
