@@ -7,7 +7,9 @@ backgroundMusic.play();
 coinSound = new sound ("./sounds/coinSound.wav");
 laserShoot = new sound ("./sounds/laserShoot.wav");
 
+
 let ctx = canvas.getContext('2d')
+
 
 document.onkeydown = gameControls
 
