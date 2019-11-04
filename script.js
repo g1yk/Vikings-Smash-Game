@@ -2,6 +2,7 @@ let canvas = document.getElementById('game-board')
 
 canvas.width = 1000;
 canvas.height = 700;
+let backgroundMusic;
 
 let ctx = canvas.getContext('2d')
 
@@ -68,7 +69,8 @@ class Monster {
 
     this.y++;
     if(this.y >700){
-      
+      total-=100;
+      score.innerHTML=total;
       ladies.shift();
     }
   }
