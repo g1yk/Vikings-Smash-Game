@@ -116,7 +116,7 @@ let lasers = [];
 function drawLaser() {
 
   if (lasers.length)
-  laserShoot.play();
+  
     for (var i = 0; i < lasers.length; i++) {
       ctx.fillStyle = '#f00';
       ctx.fillRect(lasers[i][0],lasers[i][1],lasers[i][2],lasers[i][3])
@@ -132,6 +132,7 @@ function moveLaser() {
       lasers.splice(i, 1);
     }
   }
+  
 }
 
 
@@ -260,6 +261,7 @@ function gameControls(e) {
   }
   if (e.key == 'x' && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
+    laserShoot.play();
   }  
 
 
