@@ -300,10 +300,12 @@ function gameControls(e) {
   }
 
   if(e.key == 'd'&&hero.x<934){
+    
     hero.movePlayer('x', 15)
   }
   if(e.key == 'a'&&hero.x>5){
     hero.movePlayer('x' ,-15)
+    
   }
   if (e.keyCode == 32 && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
@@ -352,18 +354,22 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
     addDiamond()
   }
 
-  
+  let w = document.getElementById("end");
+  let y = document.getElementById("game-board");
 
   // if(checkCollision(aframe)){ //I hit the Monster 
   //   window.cancelAnimationFrame(aframe)
   // }
 
   if(health <= 0){
-    //window.cancelAnimationFrame(aframe);
+    window.cancelAnimationFrame(aframe);
     //confirm("you lose")
     //if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
   }
-
+  if(health<1){
+    w.style.display = "inline-flex";
+    y.style.display = "none";
+  }
 
   }
 
