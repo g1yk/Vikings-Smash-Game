@@ -418,7 +418,7 @@ function gameControls(e) {
 
 let frames = 0;
 
-function animate() { //lifeblood of your canvas app.  This cycle forever, clears everything and redraws everything
+function animate() { 
 
   frames++;
 
@@ -426,7 +426,7 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
 
 
-  //road.drawRoad()
+
 
   hero.drawPlayer()
   scoreTotal()
@@ -458,47 +458,43 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
     window.cancelAnimationFrame(aframe);
     end.style.display = "inline-flex";
     gameboard.style.display = "none";
-    g.style.display = "inline-flex";
+    playAgain.style.display = "inline-flex";
   }
   
 }
 
 
 
-  // if(health <= 0){
-  //   // ctx.fillText('Game Over!', canvas.width/2, canvas.height / 2);
-  //   window.cancelAnimationFrame(aframe);
-  //   confirm("you lose")
-  //   if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+ 
+  // if (health < 1) {
+  //   // ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
+  //   end.style.display = "inline-flex";
+  //   y.style.display = "none";
   // }
-  if (health < 1) {
-    // ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
-    w.style.display = "inline-flex";
-    y.style.display = "none";
-  }
 
 let end = document.getElementById("end");
 let gameboard = document.getElementById("game-board");
 let playAgain = document.getElementById("play-again");
-var startscreen = document.getElementById("SplashScreen");
+let startscreen = document.getElementById("SplashScreen");
 let scoreb = document.getElementById("score");
+let startButton = document.getElementById("startButton");
 
 function restart(){
+  // ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+  location.reload();
+  // end.style.display= "none";
+  // gameboard.style.display = "inline-flex";
+  // playAgain.style.display = "none";
+  // startButton.style.display = "none";
+  // health = 3;
   
-  end.style.display= "none";
-  gameboard.style.display = "inline-flex";
-  playAgain.style.display = "none";
-  health = 3;
-  myFunction();
-  Start();
+  // swapScreens();
+  // animate();
+  // Start();
 
 }
 
-function myFunction() {
-  // var startscreen = document.getElementById("SplashScreen");
- 
-  // let score = document.getElementById("score");
-  // //let w = document.getElementById("end");
+function swapScreens() {
   
   if (startscreen.style.display === "none") {
   startscreen.style.display = "block";

@@ -13,43 +13,21 @@
     <div id="SplashScreen">
         <h1>Dota 3</h1>
         
-        <button onclick="myFunction();Start()">Start</button>
+        <button id="startButton" onclick="swapScreens();Start()">Start</button>
       </div>
       
       <div id="score" style="display:none;">0</div>
-  
+  <div id="instructions">instructions
+    blah
+    blah
+    blah
+    blah
+  </div>
   <canvas id="game-board" >Game Stuff</canvas>
   <div id ="end">You lose</div>
   <button id= "play-again" onclick="restart()">Play Again! c:</button>
 </body>
 <script type="text/javascript" src="script.js"></script>
 
-<script>
-    function myFunction() {
-    var x = document.getElementById("SplashScreen");
-    let y = document.getElementById("game-board");
-    let z = document.getElementById("score");
-    let w = document.getElementById("end");
-    
-    if (x.style.display === "none") {
-    x.style.display = "block";
-   } else {
-     x.style.display = "none";
-    }
-  //   if (y.style.display === "none") {
-  //   y.style.display = "block";
-  //  } else {
-  //    y.style.display = "none";
-  //   }
-    if (z.style.display === "none") {
-    z.style.display = "block";
-   } else {
-     z.style.display = "none";
-    } 
-
-    
-
-  }
-</script>
 
 </html>
