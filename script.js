@@ -94,9 +94,7 @@ class Monster {
   }
 
   moveRockLvl2 = () => {
-
     this.y+=2;
-
     if (this.y > 700) {
       total -= 100;
       score.innerHTML = total;
@@ -113,9 +111,6 @@ class Monster {
 
     this.y++;
     if (this.y > 700) {
-
-
-
       diamonds.shift();
     }
   }
@@ -134,6 +129,18 @@ class Monster {
 
 let hero = new Player(500, 636, 64, 64) //Make my Player 
 hero.loadPlayer()
+
+
+
+function scoreTotal() {
+  ctx.font = 'bold 18px Arial';
+  ctx.fillStyle = '#fff';
+  ctx.fillText('Score: ', 490, 30);
+  ctx.fillText(total, 550, 30);
+  ctx.fillText('Lives:', 10, 30);
+  ctx.fillText(health, 68, 30);
+
+ }
 
 
 
@@ -365,7 +372,7 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   //road.drawRoad()
 
   hero.drawPlayer()
-
+  scoreTotal()
   checkLvl()
   drawGem();
 
