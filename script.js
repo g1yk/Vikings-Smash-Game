@@ -98,7 +98,7 @@ class Monster {
 
 
   moveRockLvl2 = () => {
-    this.y+=2;
+    this.y += 1.5;
     if (this.y > 700) {
       total -= 100;
       score.innerHTML = total;
@@ -110,7 +110,19 @@ class Monster {
   }
 
   moveRockLvl3 = () => {
-    this.y+=2.4;
+    this.y += 2;
+    if (this.y > 700) {
+      total -= 100;
+      score.innerHTML = total;
+      health -= 1;
+      console.log(health);
+
+      ladies.shift();
+    }
+  }
+
+  moveRockLvl4 = () => {
+    this.y += 2.5;
     if (this.y > 700) {
       total -= 100;
       score.innerHTML = total;
@@ -161,7 +173,7 @@ function scoreTotal() {
   ctx.fillText(health, 68, 30);
   ctx.fillText('Level: ', 10, 55);
   ctx.fillText(level, 70, 55);
- }
+}
 
 function addRock() {
   ladies.push(new Monster(Math.random() * canvas.width - 5, 0, 32, 32))
@@ -197,20 +209,32 @@ function drawLadiesLvl3() {
 
   })
 }
+function drawLadiesLvl4() {
+  ladies.forEach(rock => {
+    rock.loadRock()
+    rock.moveRockLvl4()
+    rock.drawRock()
+
+  })
+}
 
 
 function checkLvl() {
-  if (total <= 2000) {
+  if (total <= 1999) {
     drawLadies()
-    
-  } if (total > 2000) {
+
+  } if (total >= 2000) {
     drawLadiesLvl2()
     level = 2
-  } if (total > 3000) {
+  } if (total >= 3999) {
     drawLadiesLvl3()
     level = 3
+  } if (total >= 7499) {
+    drawLadiesLvl4()
+    level = 4
+  }
 }
-}
+
 function drawGem() {
   diamonds.forEach(gem => {
     gem.loadDiamond()
@@ -372,13 +396,13 @@ function gameControls(e) {
     hero.movePlayer('x', -60)
   }
 
-  if(e.key == 'd'&&hero.x<934){
-    
+  if (e.key == 'd' && hero.x < 934) {
+
     hero.movePlayer('x', 15)
   }
-  if(e.key == 'a'&&hero.x>5){
-    hero.movePlayer('x' ,-15)
-    
+  if (e.key == 'a' && hero.x > 5) {
+    hero.movePlayer('x', -15)
+
   }
   if (e.keyCode == 32 && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
@@ -434,13 +458,13 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   //   window.cancelAnimationFrame(aframe)
   // }
 
-  if(health <= 0){
-    // ctx.fillText('Game Over!', canvas.width/2, canvas.height / 2);
-    window.cancelAnimationFrame(aframe);
-    confirm("you lose")
-    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
-  }
-  if(health<1){
+  // if(health <= 0){
+  //   // ctx.fillText('Game Over!', canvas.width/2, canvas.height / 2);
+  //   window.cancelAnimationFrame(aframe);
+  //   confirm("you lose")
+  //   if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+  // }
+  if (health < 1) {
     // ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
     w.style.display = "inline-flex";
     y.style.display = "none";
