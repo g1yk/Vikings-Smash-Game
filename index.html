@@ -20,10 +20,7 @@
   
   <canvas id="game-board" >Game Stuff</canvas>
   <div id ="end">You lose</div>
-  <!-- <div id ="sidebar">
-    Status
-    
-  </div> -->
+  <button id= "play-again" onclick="restart()">Play Again! c:</button>
 </body>
 <script type="text/javascript" src="script.js"></script>
 
@@ -32,6 +29,7 @@
     var x = document.getElementById("SplashScreen");
     let y = document.getElementById("game-board");
     let z = document.getElementById("score");
+    let w = document.getElementById("end");
     
     if (x.style.display === "none") {
     x.style.display = "block";

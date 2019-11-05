@@ -390,31 +390,65 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
 
   }
   if (frames % 270 === 0) {
-
+    
     addDiamond()
   }
-
-  let w = document.getElementById("end");
-  let y = document.getElementById("game-board");
-
-  // if(checkCollision(aframe)){ //I hit the Monster 
-  //   window.cancelAnimationFrame(aframe)
-  // }
-
-  if(health <= 0){
-    window.cancelAnimationFrame(aframe);
-    //confirm("you lose")
-    //if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
-  }
+  
+  
+  
+  
   if(health<1){
-    w.style.display = "inline-flex";
-    y.style.display = "none";
+    window.cancelAnimationFrame(aframe);
+    end.style.display = "inline-flex";
+    gameboard.style.display = "none";
+    g.style.display = "inline-flex";
   }
-
+  
 }
 
 
 
+
+let end = document.getElementById("end");
+let gameboard = document.getElementById("game-board");
+let playAgain = document.getElementById("play-again");
+var startscreen = document.getElementById("SplashScreen");
+let scoreb = document.getElementById("score");
+
+function restart(){
+  
+  end.style.display= "none";
+  gameboard.style.display = "inline-flex";
+  playAgain.style.display = "none";
+  health = 3;
+  myFunction();
+  Start();
+
+}
+
+function myFunction() {
+  // var startscreen = document.getElementById("SplashScreen");
+ 
+  // let score = document.getElementById("score");
+  // //let w = document.getElementById("end");
+  
+  if (startscreen.style.display === "none") {
+  startscreen.style.display = "block";
+ } else {
+   startscreen.style.display = "none";
+  }
+//   if (y.style.display === "none") {
+//   y.style.display = "block";
+//  } else {
+//    y.style.display = "none";
+//   }
+  if (scoreb.style.display === "none") {
+  scoreb.style.display = "block";
+ } else {
+   scoreb.style.display = "none";
+  } 
+}
+  
 
 //console.log(ladies.length)
 

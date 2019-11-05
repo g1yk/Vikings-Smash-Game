@@ -59,11 +59,7 @@ justify-content: center;
 background-size: cover;
 background-image: url(./images/background.jpg);
 }
+#play-again{
+display: none;
+}
 
-/* #sidebar{
-  align-self:left ;
-  justify-content: right;
-  border-block-start-width: 400px;
-  height: 400px;
-  display: inline-table;
-} */
