@@ -7,6 +7,7 @@ backgroundMusic.play();
 coinSound = new sound("./sounds/coinSound.wav");
 laserShoot = new sound("./sounds/laserShoot.wav");
 boom = new sound("./sounds/boom.wav");
+let diamondcount = 0;
 
 
 
@@ -367,6 +368,11 @@ function checkCollision2(aframe) {
 
       diamonds.splice(i, 1);
       total += 300;
+      diamondcount++
+      if(diamondcount%5===0){
+        health++
+      }
+
       score.innerHTML = total;
       coinSound.play();
       console.log('collision')
