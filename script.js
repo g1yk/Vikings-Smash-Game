@@ -9,6 +9,7 @@ laserShoot = new sound("./sounds/laserShoot.wav");
 boom = new sound("./sounds/boom.wav");
 
 
+
 let ctx = canvas.getContext('2d')
 
 
@@ -19,6 +20,7 @@ let diamonds = []
 let score = document.getElementById('score')
 let total = 0;
 let health = 3;
+let level = 1;
 
 // class Road {
 //   drawRoad = () => {
@@ -51,6 +53,7 @@ class Player {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
   }
 }
+
 
 class Monster {
   constructor(x, y, width, height) {
@@ -93,8 +96,21 @@ class Monster {
     }
   }
 
+
   moveRockLvl2 = () => {
     this.y+=2;
+    if (this.y > 700) {
+      total -= 100;
+      score.innerHTML = total;
+      health -= 1;
+      console.log(health);
+
+      ladies.shift();
+    }
+  }
+
+  moveRockLvl3 = () => {
+    this.y+=2.4;
     if (this.y > 700) {
       total -= 100;
       score.innerHTML = total;
@@ -127,8 +143,12 @@ class Monster {
 
 
 
+
+
 let hero = new Player(500, 636, 64, 64) //Make my Player 
 hero.loadPlayer()
+
+
 
 
 
@@ -139,10 +159,9 @@ function scoreTotal() {
   ctx.fillText(total, 550, 30);
   ctx.fillText('Lives:', 10, 30);
   ctx.fillText(health, 68, 30);
-
+  ctx.fillText('Level: ', 10, 55);
+  ctx.fillText(level, 70, 55);
  }
-
-
 
 function addRock() {
   ladies.push(new Monster(Math.random() * canvas.width - 5, 0, 32, 32))
@@ -170,14 +189,27 @@ function drawLadiesLvl2() {
 
   })
 }
+function drawLadiesLvl3() {
+  ladies.forEach(rock => {
+    rock.loadRock()
+    rock.moveRockLvl3()
+    rock.drawRock()
+
+  })
+}
 
 
 function checkLvl() {
   if (total <= 2000) {
     drawLadies()
+    
   } if (total > 2000) {
     drawLadiesLvl2()
-  }
+    level = 2
+  } if (total > 3000) {
+    drawLadiesLvl3()
+    level = 3
+}
 }
 function drawGem() {
   diamonds.forEach(gem => {
@@ -187,6 +219,7 @@ function drawGem() {
 
   })
 }
+
 
 let laserTotal = 2
 let lasers = [];
@@ -402,11 +435,13 @@ function animate() { //lifeblood of your canvas app.  This cycle forever, clears
   // }
 
   if(health <= 0){
+    // ctx.fillText('Game Over!', canvas.width/2, canvas.height / 2);
     window.cancelAnimationFrame(aframe);
-    //confirm("you lose")
-    //if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
+    confirm("you lose")
+    if(confirm("you lose")) document.location = 'http://stackoverflow.com/';
   }
   if(health<1){
+    // ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
     w.style.display = "inline-flex";
     y.style.display = "none";
   }
