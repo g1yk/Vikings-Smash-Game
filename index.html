@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' />
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
   <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <title>Viking Smash Game</title>
 </head>
+
 <body>
-    <div id="SplashScreen">
-        <h1>Dota 3</h1>
-        
-        <button id="startButton" onclick="swapScreens();Start()">Start</button>
-      </div>
-      
-      <div id="score" style="display:none;">0</div>
-  <div id="instructions">
-    <!-- instructions
-    blah
-    blah
-    blah
-    blah -->
+
+  <div class="row">
+
+    <div class="col-md-4">
+       
+        <div id="instructions">
+          <!-- instructions
+          blah
+          blah
+          blah
+          blah -->
+        </div>
+
+       
+    </div>
+
+<div class="col-md-4">
+  <div id="SplashScreen">
+    <h1>Viking Smash</h1>
+
+    <button id="startButton" onclick="swapScreens();Start()">Start</button>
+
+
   </div>
-  <canvas id="game-board" >Game Stuff</canvas>
-  <div id ="end">You lose</div>
-  <button id= "play-again" onclick="restart()">Play Again! c:</button>
+
+  </div>
+
+
+
+
+<div class="col-md-4">
+    <div id="score" style="display:none;">0</div>
+</div>
+
+</div>
 </body>
+
+
+
+<div class="container">
+  
+<canvas id="game-board">Game Stuff</canvas>
+<div id="end">You lose</div>
+<button id="play-again" onclick="restart()">Play Again! c:</button>
+
+  </div>
+
+
 <script type="text/javascript" src="script.js"></script>
 
 
