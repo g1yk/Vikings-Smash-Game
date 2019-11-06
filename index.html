@@ -11,7 +11,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <link rel="stylesheet" href="style.css">
-  
+
   <title>IronHack Arena</title>
 </head>
 
@@ -20,51 +20,83 @@
   <div class="row">
 
     <div class="col-md-4">
-       
-        <div id="instructions">
-          <!-- instructions
+
+      <div id="instructions">
+        <!-- instructions
           blah
           blah
           blah
           blah -->
-        </div>
+      </div>
 
-       
+
     </div>
 
-<div class="col-md-4">
-  <div id="SplashScreen">
-    <h1>Viking Smash</h1>
-
-    <button id="startButton" onclick="swapScreens();Start()">Start</button>
-
-
-  </div>
-
-  </div>
+    <div class="col-md-4">
+      <div id="SplashScreen">
+        <h1>Viking Smash</h1>
+        <button id="startButton" onclick="swapScreens();Start()">Start</button>
 
 
 
+      </div>
 
-<div class="col-md-4">
-    <div id="score" style="display:none;">0</div>
-</div>
-
-</div>
-</body>
+    </div>
 
 
 
-<div class="container">
-  
-<canvas id="game-board">Game Stuff</canvas>
-<div id="end">You lose</div>
-<button id="play-again" onclick="restart()">Play Again! c:</button>
+
+    <div class="col-md-4">
+
+    </div>
 
   </div>
 
 
-<script type="text/javascript" src="script.js"></script>
+
+
+
+  <div id="score">0</div>
+  <div class="ourRow">
+
+
+    <div style="width: 200px">Pres WASD to move hero </div>
+
+    <div class="Canvas">
+      <canvas id="game-board" width="1000" height="700" style="
+    align-self: center;">
+        Game Stuff</canvas>
+
+        <div id="end">You lose</div>
+        <button id="play-again" onclick="restart()">Play Again! c:</button>
+    </div>
+
+    <div class="" style="
+    width: 200px;
+">
+      <p>
+        When you skip the rocks - you losing heath.
+        When you skip the rocks - you losing heath.
+        When you skip the rocks - you losing heath.
+        .</p>
+
+    </div>
+
+
+
+  </div>
+
+ 
+
+
+
+
+
+
+
+
+  <script type="text/javascript" src="script.js"></script>
+
 
 
 </html>

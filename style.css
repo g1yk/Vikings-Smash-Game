@@ -34,15 +34,15 @@ body button {
 }
 
 #game-board {
-    float: center;
-    padding: 20px 0px;
+    /* float: center; */
+    /* padding: 20px 0px; */
     border: 3px solid black;
     background-image: url(./images/minecraft\ house.jpg);
     background-size: cover;
-    justify-content: center;
+    /* justify-content: center;
     align-self: center;
     background-repeat: no-repeat;
-    display:inline-flex;
+    display:inline-flex; */
     
 }
 #end{
@@ -63,3 +63,16 @@ background-image: url(./images/background.jpg);
 display: none;
 }
 
+
+.centerBlock {
+  text-align:center;
+  display: table;
+  margin: auto;
+}
+
+.ourRow {
+  display: flex;
+  justify-content: space-around;
+
+  align-items: center;
+}
