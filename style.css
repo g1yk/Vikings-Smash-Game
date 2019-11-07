@@ -41,8 +41,8 @@ body button {
     background-size: cover;
     /* justify-content: center;
     align-self: center;
-    background-repeat: no-repeat;
-    display:inline-flex; */
+    background-repeat: no-repeat;*/
+    display:none;
     
 }
 #end{
