@@ -59,32 +59,31 @@ class Player {
   }
 }
 
-class Boss {
-  constructor(x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-  }
-  loadBoss = () => {
-    let img = new Image();
-    img.src = './images/warrior.png'
+// class Boss {
+//   constructor(x, y, width, height) {
+//     this.x = x;
+//     this.y = y;
+//     this.width = width;
+//     this.height = height;
+//   }
+//   loadBoss = () => {
+//     let img = new Image();
+//     img.src = './images/warrior.png'
 
-    img.onload = () => {
-      this.img = img;
-      this.drawBoss()
-    }
-  }
-  moveBoss = (direction, value) => {
-    this[direction] += value;
-  }
+//     img.onload = () => {
+//       this.img = img;
+//       this.drawBoss()
+//     }
+//   }
+//   moveBoss = (direction, value) => {
+//     this[direction] += value;
+//   }
 
+//   drawBoss = () => {
+//     ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
 
-
-  drawBoss = () => {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
-  }
-}
+//   }
+// }
 
 class Monster {
   constructor(x, y, width, height) {
@@ -182,7 +181,27 @@ class Monster {
     ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
   }
 
+  loadBoss = () => {
+    let img = new Image();
+    img.src = './images/warrior.png'
+
+    img.onload = () => {
+      this.img = img;
+      this.drawBoss()
+    }
+  }
+  moveBoss = (direction, value) => {
+    this[direction] += value;
+  }
+
+
+
+  drawBoss = () => {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+
+  }
 }
+
 
 
 
@@ -191,8 +210,11 @@ class Monster {
 let hero = new Player(500, 636, 64, 64) //Make my Player 
 hero.loadPlayer()
 
-let boss = new Boss(490, 30, 64, 64)
+let boss = new Monster(490, 30, 64, 64)
 boss.loadBoss()
+
+
+
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -272,7 +294,7 @@ function drawLadiesLvl4() {
 
 
 function checkLvl() {
-  if (total <= 999) {
+  if (boss == false && total <= 999) {
     drawLadies()
 
   } if (total >= 1000) {
@@ -338,43 +360,41 @@ function drawBossLaser() {
 
 function moveBossLaser() {
   for (var i = 0; i < bossLasers.length; i++) {
-    if ( bossLasers[i][1] < 670) {
+    if (bossLasers[i][1] < 670) {
       bossLasers[i][1] += 10;
     } else if (bossLasers[i][1] >= 670) {
-      bossLasers.splice(i, 1);
+      bossLasers.splice(i, 1);              // but here after its 670, its working 
     }
   }
 }
 
-function bossHitTest() {  // CHECKING IF LASERS HIT THE ROCK
+function bossHitTest() {  // BOSS CAN HIT US NOW
   let remove = false;
   for (var i = 0; i < bossLasers.length; i++) {
-   
-      // console.log(bossLasers[i][1])
-      // if (bossLasers[i][1] <= ladies[j].y && bossLasers[i][0] <= ladies[j].x) {
 
-      var rect2 = hero
+    // console.log(bossLasers[i][1])
+    // if (bossLasers[i][1] <= ladies[j].y && bossLasers[i][0] <= ladies[j].x) {
 
-      if (bossLasers[i][0] < rect2.x + rect2.width &&
-        bossLasers[i][0] + bossLasers[i][2] > rect2.x &&
-        bossLasers[i][1] < rect2.y + rect2.height &&
-        bossLasers[i][1] + bossLasers[i][3] > rect2.y) {
-        remove = true;
-        console.log('HIT')
-        bossLasers.splice(i, 0);
+    var rect2 = hero
 
-      }
-    }
-    if (remove == true) {
-      health -= 1
+    if (bossLasers[i][0] < rect2.x + rect2.width &&
+      bossLasers[i][0] + bossLasers[i][2] > rect2.x &&
+      bossLasers[i][1] < rect2.y + rect2.height &&
+      bossLasers[i][1] + bossLasers[i][3] > rect2.y) {
+      remove = true;
+      console.log('HIT')
+      bossLasers.splice(i, 1);  // this is not working, and i don't know why
 
-      bossLasers.splice(i, 0);
-
-
-
-      remove = false;
     }
   }
+  if (remove == true) {
+    health -= 1
+
+    bossLasers.splice(i, 0);
+
+    remove = false;
+  }
+}
 
 
 
@@ -407,6 +427,43 @@ function hitTest() {  // CHECKING IF LASERS HIT THE ROCK
   }
 }
 
+
+function hitEnemyTest() {  // FOR KILLING BOSS
+  let remove = false;
+  for (var i = 0; i < lasers.length; i++) {
+
+    // console.log(lasers[i][1])
+    // if (lasers[i][1] <= ladies[j].y && lasers[i][0] <= ladies[j].x) {
+
+    var rect2 = boss
+
+    if (lasers[i][0] < rect2.x + rect2.width &&
+      lasers[i][0] + lasers[i][2] > rect2.x &&
+      lasers[i][1] < rect2.y + rect2.height &&
+      lasers[i][1] + lasers[i][3] > rect2.y) {
+      remove = true;
+      lasers.splice(i, 1);
+
+      boom.play();
+      total += 100;
+      score.innerHTML = total;
+      //  ladies.push([(Math.random() * 500) + 50, -45, enemy_w, enemy_h, speed]);
+    }
+  }
+  if (remove == true) {
+    lasers.splice(i, 1);
+
+
+    bossHeath -= 1
+    console.log(bossHeath)
+    if (bossHeath == 0) {
+      boss = false
+    }
+    remove = false;
+  }
+}
+
+
 function moveAuto() {        // FUNCTION FOR MOVING BOSS
 
   function moveBossR() {
@@ -421,10 +478,10 @@ function moveAuto() {        // FUNCTION FOR MOVING BOSS
     }
   }
 
-  if (getRandomInt(0, 2) == 0) {  
+  if (getRandomInt(0, 2) == 0) {
     moveBossR()
-    if(frames%50 === 0){
-    
+    if (frames % 50 === 0) {
+
       bossLasers.push([boss.x + 25, boss.y + 20, 4, 20])
       console.log(frames, bossLasers.length)
       laserShoot.play()
@@ -437,8 +494,8 @@ function moveAuto() {        // FUNCTION FOR MOVING BOSS
     //   lasers.push([boss.x + 25, boss.y + 20, 4, 20])
     //   console.log(lasers.length)
     // }, 1000 )
-    
-    
+
+
   }
   if (getRandomInt(0, 2) == 1) {
     moveBossL()
@@ -595,23 +652,33 @@ function animate() {
 
   hero.drawPlayer()
   scoreTotal()
+
+  
+  
+  
   checkLvl()
+  
+  
+  drawBossLaser()
+  
   drawGem();
-
-  boss.drawBoss()
-  moveAuto()
-  moveBossLaser()
-
-  drawBossLaser() 
-
   bossHitTest()
+  hitEnemyTest()
 
-
+  
+  
   checkCollision();
   checkCollision2();
   moveLaser()
   drawLaser()
   hitTest()
+
+
+    boss.drawBoss()
+    
+    moveAuto()
+    moveBossLaser()
+
 
 
 
