@@ -1,8 +1,18 @@
+
+@import "compass/css3";
+
+@import "compass/css3/transform";
+
+@import url('https://fonts.googleapis.com/css?family=Bowlby+One+SC&display=swap');
+
 body {
   padding: 0;
   text-align: center;
   overflow: hidden;
-  background-image: url(./images/page-background.jpg);
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  ),url(./images/page-background.jpg);
   background-size: cover;
 }
 
@@ -82,4 +92,9 @@ ul{
   display: flex;
   flex-direction: column;
   color : white;
+}
+
+h1{
+  font-family: 'Bowlby One SC', cursive;
+color: #FFEEF2
 }
