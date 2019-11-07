@@ -221,16 +221,16 @@ function drawLadiesLvl4() {
 
 
 function checkLvl() {
-  if (total <= 1999) {
+  if (total <= 999) {
     drawLadies()
 
-  } if (total >= 2000) {
+  } if (total >= 1000) {
     drawLadiesLvl2()
     level = 2
-  } if (total >= 3999) {
+  } if (total >= 1999) {
     drawLadiesLvl3()
     level = 3
-  } if (total >= 7499) {
+  } if (total >= 2499) {
     drawLadiesLvl4()
     level = 4
   }
@@ -410,12 +410,24 @@ function gameControls(e) {
     hero.movePlayer('x', -15)
 
   }
+  if (e.key == 'o' ) {
+    health = 0;
+
+  }
   if (e.keyCode == 32 && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
     laserShoot.play();
   }
 
 
+}
+
+document.addEventListener("mousemove", mouseMoveHandler, false);
+function mouseMoveHandler(e) {
+  var relativeX = e.clientX - canvas.offsetLeft;
+  if(relativeX > 0 && relativeX < canvas.width) {
+    hero.x = relativeX;
+  }
 }
 
 
@@ -447,11 +459,31 @@ function animate() {
 
 
 
-  if (frames % 99 === 0) {
+  if (level === 1&&frames % 99 === 0) {
 
     addRock()
 
   }
+  if(level === 2&&frames%70===0)
+  { 
+    addRock()
+    // setTimeout(addRock(), 22230)
+    
+  }
+  if(level ===3&&frames%60===0)
+  { 
+    addRock()
+    // setTimeout(addRock(), 2230)
+    // setTimeout(addRock(), 4000)
+  }
+  if(level ===4&&frames%40===0)
+  { 
+    addRock()
+    // setTimeout(addRock(), 750)
+    // setTimeout(addRock(), 1450)
+    // setTimeout(addRock(), 2100)
+  }
+
   if (frames % 270 === 0) {
     
     addDiamond()
@@ -507,11 +539,11 @@ function swapScreens() {
  } else {
    startscreen.style.display = "none";
   }
-//   if (y.style.display === "none") {
-//   y.style.display = "block";
-//  } else {
-//    y.style.display = "none";
-//   }
+  if (gameboard.style.display === "none") {
+  gameboard.style.display = "inline-flex";
+ } else {
+   gameboard.style.display = "block";
+  }
   if (scoreb.style.display === "none") {
   scoreb.style.display = "block";
  } else {
