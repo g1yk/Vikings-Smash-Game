@@ -629,6 +629,15 @@ function gameControls(e) {
     laserShoot.play();
   }
 
+  document.addEventListener("mousemove", mouseMoveHandler, false);
+function mouseMoveHandler(e) {
+  var relativeX = e.clientX - canvas.offsetLeft;
+  if(relativeX > 0 && relativeX < canvas.width) {
+    hero.x = relativeX;
+  }
+}
+
+
 
 }
 
@@ -671,20 +680,12 @@ function animate() {
   drawLaser()
   hitTest()
 
-<<<<<<< HEAD
-
-  boss.drawBoss()
-
-  moveAuto()
-  moveBossLaser()
-=======
 if(boss){
   boss.drawBoss()
     
   moveAuto()
   moveBossLaser()
 }
->>>>>>> c596234fd43e5b1328a06435ab106b0800a6d2b5
 
 }
 
