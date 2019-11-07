@@ -671,11 +671,20 @@ function animate() {
   drawLaser()
   hitTest()
 
+<<<<<<< HEAD
 
   boss.drawBoss()
 
   moveAuto()
   moveBossLaser()
+=======
+if(boss){
+  boss.drawBoss()
+    
+  moveAuto()
+  moveBossLaser()
+}
+>>>>>>> c596234fd43e5b1328a06435ab106b0800a6d2b5
 
 }
 
