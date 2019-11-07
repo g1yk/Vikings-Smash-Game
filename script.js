@@ -282,19 +282,29 @@ function drawLadiesLvl4() {
 }
 
 
-function checkLvl() {
-  if (boss == false && total <= 999) {
-    drawLadies()
+function checkLvl() {  // LEVELS
+  if (total <= 1999) {
 
-  } if (total >= 1000) {
-    drawLadiesLvl2()
+
+    // drawLadies()
+
+  } if (total >= 2000) {
+    // rocks = false
+    // diamonds = false
+
+
+
+    // drawLadiesLvl2()
     level = 2
-  } if (total >= 1999) {
+  } if (level == 3 && boss == false) {
     drawLadiesLvl3()
     level = 3
-  } if (total >= 2499) {
-    drawLadiesLvl4()
-    level = 4
+    // } if (total >= 7499) {
+    //   
+
+    //   drawLadiesLvl4()
+    //   level = 4
+    // }
   }
 }
 
@@ -603,24 +613,12 @@ function gameControls(e) {
     hero.movePlayer('x', -15)
 
   }
-  if (e.key == 'o' ) {
-    health = 0;
-
-  }
   if (e.keyCode == 32 && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
     laserShoot.play();
   }
 
 
-}
-
-document.addEventListener("mousemove", mouseMoveHandler, false);
-function mouseMoveHandler(e) {
-  var relativeX = e.clientX - canvas.offsetLeft;
-  if(relativeX > 0 && relativeX < canvas.width) {
-    hero.x = relativeX;
-  }
 }
 
 
@@ -642,20 +640,20 @@ function animate() {
   hero.drawPlayer()
   scoreTotal()
 
-  
-  
-  
+
+
+
   checkLvl()
-  
-  
+
+
   drawBossLaser()
-  
-  drawGem();
+
+  // drawGem();
   bossHitTest()
   hitEnemyTest()
 
-  
-  
+
+
   checkCollision();
   checkCollision2();
   moveLaser()
@@ -663,55 +661,36 @@ function animate() {
   hitTest()
 
 
-    boss.drawBoss()
-    
-    moveAuto()
-    moveBossLaser()
+  boss.drawBoss()
 
-
-
-
-  if (level === 1&&frames % 99 === 0) {
-
-    addRock()
-
-  }
-  if(level === 2&&frames%70===0)
-  { 
-    addRock()
-    // setTimeout(addRock(), 22230)
-    
-  }
-  if(level ===3&&frames%60===0)
-  { 
-    addRock()
-    // setTimeout(addRock(), 2230)
-    // setTimeout(addRock(), 4000)
-  }
-  if(level ===4&&frames%40===0)
-  { 
-    addRock()
-    // setTimeout(addRock(), 750)
-    // setTimeout(addRock(), 1450)
-    // setTimeout(addRock(), 2100)
-  }
-
-  if (frames % 270 === 0) {
-
-    addDiamond()
-  }
-
-
-
-
-  if (health < 1) {
-    window.cancelAnimationFrame(aframe);
-    end.style.display = "inline-flex";
-    gameboard.style.display = "none";
-    playAgain.style.display = "inline-flex";
-  }
+  moveAuto()
+  moveBossLaser()
 
 }
+
+
+if (frames % 99 === 0) {
+
+  addRock()
+
+}
+if (frames % 270 === 0) {
+
+  addDiamond()
+}
+
+
+
+
+if (health < 1) {
+  window.cancelAnimationFrame(aframe);
+  end.style.display = "inline-flex";
+  gameboard.style.display = "none";
+  playAgain.style.display = "inline-flex";
+}
+
+
+
 
 
 
