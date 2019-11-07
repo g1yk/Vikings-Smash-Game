@@ -633,7 +633,7 @@ function gameControls(e) {
 }
 document.addEventListener("mousemove", mouseMoveHandler, false);
 function mouseMoveHandler(e) {
-var relativeX = e.clientX - canvas.offsetLeft-20;
+var relativeX = e.clientX - canvas.offsetLeft-30;
 if(relativeX > 0 && relativeX < canvas.width) {
   hero.x = relativeX;
 }
@@ -669,7 +669,7 @@ function animate() {
 
   drawBossLaser()
 
-  // drawGem();
+  drawGem();
   bossHitTest()
   hitEnemyTest()
 
@@ -717,9 +717,9 @@ if (frames % 99 === 0) {
     addRock()
    
   }
-
+if(frames%270===0){
   addDiamond()
-
+}
 
 
 
@@ -765,9 +765,7 @@ function swapScreens() {
   }
   if (scoreb.style.display === "none") {
     scoreb.style.display = "block";
-  } else {
-    scoreb.style.display = "none";
-  }
+  } 
 }
 
 
