@@ -238,6 +238,17 @@ function scoreTotal() {
   ctx.fillText(level, 70, 55);
 }
 
+function highScore() {
+  ctx.font = 'bold 18px Arial';
+  ctx.fillStyle = '#fff';
+  ctx.fillText('Score: ', 490, 30);
+  ctx.fillText(total, 550, 30);
+  ctx.fillText('Lives:', 10, 30);
+  ctx.fillText(health, 68, 30);
+  ctx.fillText('Level: ', 10, 55);
+  ctx.fillText(level, 70, 55);
+}
+
 function addRock() {
   ladies.push(new Monster(Math.random() * canvas.width - 5, 0, 32, 32))
 }
@@ -673,11 +684,26 @@ if (frames % 99 === 0) {
 
   addRock()
 
-}
-if (frames % 270 === 0) {
+  }
+  if(level === 2&&frames%70===0)
+  { 
+    addRock()
+    
+    
+  }
+  if(level ===3&&frames%60===0)
+  { 
+    addRock()
+    
+  }
+  if(level ===4&&frames%40===0)
+  { 
+    addRock()
+   
+  }
 
   addDiamond()
-}
+
 
 
 
@@ -690,16 +716,19 @@ if (health < 1) {
 }
 
 
+  if (health < 1) {
+    //checks if you lost
+    window.cancelAnimationFrame(aframe);
+    end.style.display = "inline-flex";
+    gameboard.style.display = "none";
+    playAgain.style.display = "inline-flex";
+  }
 
 
 
 
 
-// if (health < 1) {
-//   // ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
-//   end.style.display = "inline-flex";
-//   y.style.display = "none";
-// }
+
 
 let end = document.getElementById("end");
 let gameboard = document.getElementById("game-board");
@@ -709,32 +738,24 @@ let scoreb = document.getElementById("score");
 let startButton = document.getElementById("startButton");
 
 function restart() {
-  // ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+  //reloads the page
   location.reload();
-  // end.style.display= "none";
-  // gameboard.style.display = "inline-flex";
-  // playAgain.style.display = "none";
-  // startButton.style.display = "none";
-  // health = 3;
-
-  // swapScreens();
-  // animate();
-  // Start();
+  
 
 }
 
 function swapScreens() {
-
+//changes screens to show gameboard and hide others
   if (startscreen.style.display === "none") {
-    startscreen.style.display = "block";
-  } else {
-    startscreen.style.display = "none";
+  startscreen.style.display = "block";
+ } else {
+   startscreen.style.display = "none";
   }
-  //   if (y.style.display === "none") {
-  //   y.style.display = "block";
-  //  } else {
-  //    y.style.display = "none";
-  //   }
+  if (gameboard.style.display === "none") {
+  gameboard.style.display = "inline-flex";
+ } else {
+   gameboard.style.display = "block";
+  }
   if (scoreb.style.display === "none") {
     scoreb.style.display = "block";
   } else {
