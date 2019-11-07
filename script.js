@@ -3,13 +3,13 @@ let canvas = document.getElementById('game-board')
 canvas.width = 1000;
 canvas.height = 700;
 backgroundMusic = new sound("./sounds/backgroundMusic.ogg");
-backgroundMusic.play();
+//backgroundMusic.play();
 coinSound = new sound("./sounds/coinSound.wav");
 laserShoot = new sound("./sounds/laserShoot.wav");
 boom = new sound("./sounds/boom.wav");
 let diamondcount = 0;
 hurtSound = new sound("./sounds/doh.mp3");
-
+deathSound = new sound("./sounds/death.wav");
 
 
 let ctx = canvas.getContext('2d')
@@ -463,6 +463,7 @@ function hitEnemyTest() {  // FOR KILLING BOSS
     bossHeath -= 1
     console.log(bossHeath)
     if (bossHeath == 0) {
+      deathSound.play();
       boss = false
     }
     remove = false;
@@ -632,7 +633,7 @@ function gameControls(e) {
 }
 document.addEventListener("mousemove", mouseMoveHandler, false);
 function mouseMoveHandler(e) {
-var relativeX = e.clientX - canvas.offsetLeft;
+var relativeX = e.clientX - canvas.offsetLeft-20;
 if(relativeX > 0 && relativeX < canvas.width) {
   hero.x = relativeX;
 }
@@ -685,6 +686,10 @@ if(boss){
     
   moveAuto()
   moveBossLaser()
+}
+else{
+  
+  bossLasers = [];
 }
 
 
