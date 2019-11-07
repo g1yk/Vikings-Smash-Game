@@ -20,8 +20,9 @@ let ladies = []
 let diamonds = []
 let score = document.getElementById('score')
 let total = 0;
-let health = 3;
+let health = 10;
 let level = 1;
+let bossHeath = 5;
 
 // class Road {
 //   drawRoad = () => {
@@ -50,11 +51,40 @@ class Player {
   movePlayer = (direction, value) => {
     this[direction] += value;
   }
+
+
+
   drawPlayer = () => {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
   }
 }
 
+class Boss {
+  constructor(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  }
+  loadBoss = () => {
+    let img = new Image();
+    img.src = './images/warrior.png'
+
+    img.onload = () => {
+      this.img = img;
+      this.drawBoss()
+    }
+  }
+  moveBoss = (direction, value) => {
+    this[direction] += value;
+  }
+
+
+
+  drawBoss = () => {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+  }
+}
 
 class Monster {
   constructor(x, y, width, height) {
@@ -161,6 +191,16 @@ class Monster {
 let hero = new Player(500, 636, 64, 64) //Make my Player 
 hero.loadPlayer()
 
+let boss = new Boss(490, 30, 64, 64)
+boss.loadBoss()
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+}
+
+
 
 
 
@@ -249,6 +289,9 @@ function drawGem() {
 let laserTotal = 2
 let lasers = [];
 
+let bossLaserTotal = 0
+let bossLasers = [];
+
 function drawLaser() {
 
   if (lasers.length)
@@ -268,16 +311,67 @@ function moveLaser() {
       lasers.splice(i, 1);
     }
   }
-
 }
 
 
+function drawBossLaser() {
 
-function hitTest() {
+  if (bossLasers.length)
+
+    for (var i = 0; i < bossLasers.length; i++) {
+      ctx.fillStyle = '#f01';
+      ctx.fillRect(bossLasers[i][0], bossLasers[i][1], bossLasers[i][2], bossLasers[i][3])
+
+    }
+}
+
+function moveBossLaser() {
+  for (var i = 0; i < bossLasers.length; i++) {
+    if ( bossLasers[i][1] < 670) {
+      bossLasers[i][1] += 10;
+    } else if (bossLasers[i][1] >= 670) {
+      bossLasers.splice(i, 1);
+    }
+  }
+}
+
+function bossHitTest() {  // CHECKING IF LASERS HIT THE ROCK
+  let remove = false;
+  for (var i = 0; i < bossLasers.length; i++) {
+   
+      // console.log(bossLasers[i][1])
+      // if (bossLasers[i][1] <= ladies[j].y && bossLasers[i][0] <= ladies[j].x) {
+
+      var rect2 = hero
+
+      if (bossLasers[i][0] < rect2.x + rect2.width &&
+        bossLasers[i][0] + bossLasers[i][2] > rect2.x &&
+        bossLasers[i][1] < rect2.y + rect2.height &&
+        bossLasers[i][1] + bossLasers[i][3] > rect2.y) {
+        remove = true;
+        console.log('HIT')
+        bossLasers.splice(i, 0);
+
+      }
+    }
+    if (remove == true) {
+      health -= 1
+
+      bossLasers.splice(i, 0);
+
+
+
+      remove = false;
+    }
+  }
+
+
+
+function hitTest() {  // CHECKING IF LASERS HIT THE ROCK
   let remove = false;
   for (var i = 0; i < lasers.length; i++) {
     for (var j = 0; j < ladies.length; j++) {
-      console.log(lasers[i][1])
+      // console.log(lasers[i][1])
       // if (lasers[i][1] <= ladies[j].y && lasers[i][0] <= ladies[j].x) {
 
       var rect2 = ladies[j]
@@ -301,6 +395,48 @@ function hitTest() {
     }
   }
 }
+
+function moveAuto() {        // FUNCTION FOR MOVING BOSS
+
+  function moveBossR() {
+    if (boss.x < 934) {
+      boss.moveBoss('x', 5)
+    }
+  }
+  function moveBossL() {
+    if (boss.x > 5) {
+      boss.moveBoss('x', -5)
+
+    }
+  }
+
+  if (getRandomInt(0, 2) == 0) {  
+    moveBossR()
+    if(frames%50 === 0){
+    
+      bossLasers.push([boss.x + 25, boss.y + 20, 4, 20])
+      console.log(frames, bossLasers.length)
+      laserShoot.play()
+
+    }
+
+
+
+    // setTimeout(() => {
+    //   lasers.push([boss.x + 25, boss.y + 20, 4, 20])
+    //   console.log(lasers.length)
+    // }, 1000 )
+    
+    
+  }
+  if (getRandomInt(0, 2) == 1) {
+    moveBossL()
+    //setTimeout(() => {lasers.push([boss.x + 25, boss.y + 20, 4, 20])}, 10000);
+    //setTimeout(laserShoot.play(), 10000 )
+  }
+
+}
+
 
 
 
@@ -369,7 +505,7 @@ function checkCollision2(aframe) {
       diamonds.splice(i, 1);
       total += 300;
       diamondcount++
-      if(diamondcount%5===0){
+      if (diamondcount % 5 === 0) {
         health++
       }
 
@@ -436,7 +572,7 @@ function mouseMoveHandler(e) {
 
 let frames = 0;
 
-function animate() { 
+function animate() {
 
   frames++;
 
@@ -450,6 +586,15 @@ function animate() {
   scoreTotal()
   checkLvl()
   drawGem();
+
+  boss.drawBoss()
+  moveAuto()
+  moveBossLaser()
+
+  drawBossLaser() 
+
+  bossHitTest()
+
 
   checkCollision();
   checkCollision2();
@@ -485,30 +630,30 @@ function animate() {
   }
 
   if (frames % 270 === 0) {
-    
+
     addDiamond()
   }
-  
-  
-  
-  
-  if(health<1){
+
+
+
+
+  if (health < 1) {
     window.cancelAnimationFrame(aframe);
     end.style.display = "inline-flex";
     gameboard.style.display = "none";
     playAgain.style.display = "inline-flex";
   }
-  
+
 }
 
 
 
- 
-  // if (health < 1) {
-  //   // ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
-  //   end.style.display = "inline-flex";
-  //   y.style.display = "none";
-  // }
+
+// if (health < 1) {
+//   // ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2);
+//   end.style.display = "inline-flex";
+//   y.style.display = "none";
+// }
 
 let end = document.getElementById("end");
 let gameboard = document.getElementById("game-board");
@@ -517,7 +662,7 @@ let startscreen = document.getElementById("SplashScreen");
 let scoreb = document.getElementById("score");
 let startButton = document.getElementById("startButton");
 
-function restart(){
+function restart() {
   // ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
   location.reload();
   // end.style.display= "none";
@@ -525,7 +670,7 @@ function restart(){
   // playAgain.style.display = "none";
   // startButton.style.display = "none";
   // health = 3;
-  
+
   // swapScreens();
   // animate();
   // Start();
@@ -533,8 +678,9 @@ function restart(){
 }
 
 function swapScreens() {
-  
+
   if (startscreen.style.display === "none") {
+<<<<<<< HEAD
   startscreen.style.display = "block";
  } else {
    startscreen.style.display = "none";
@@ -544,13 +690,24 @@ function swapScreens() {
  } else {
    gameboard.style.display = "block";
   }
+=======
+    startscreen.style.display = "block";
+  } else {
+    startscreen.style.display = "none";
+  }
+  //   if (y.style.display === "none") {
+  //   y.style.display = "block";
+  //  } else {
+  //    y.style.display = "none";
+  //   }
+>>>>>>> 55b68d8b4a8ee9892df7180c5fd25306af41f4c5
   if (scoreb.style.display === "none") {
-  scoreb.style.display = "block";
- } else {
-   scoreb.style.display = "none";
-  } 
+    scoreb.style.display = "block";
+  } else {
+    scoreb.style.display = "none";
+  }
 }
-  
+
 
 //console.log(ladies.length)
 
