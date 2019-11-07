@@ -295,28 +295,23 @@ function drawLadiesLvl4() {
 
 function checkLvl() {  // LEVELS
   if (total <= 1999) {
+    drawLadies()
+  } 
 
+  if (total >= 2000) {
 
-    // drawLadies()
-
-  } if (total >= 2000) {
-    // rocks = false
-    // diamonds = false
-
-
-
-    // drawLadiesLvl2()
+    drawLadiesLvl2()
     level = 2
-  } if (level == 3 && boss == false) {
+  } 
+  if (total>=3000) {
     drawLadiesLvl3()
     level = 3
-    // } if (total >= 7499) {
-    //   
-
-    //   drawLadiesLvl4()
-    //   level = 4
-    // }
-  }
+    } 
+    if (total >= 7499) {
+      drawLadiesLvl4()
+      level = 4
+    }
+  
 }
 
 function drawGem() {
@@ -624,17 +619,21 @@ function gameControls(e) {
     hero.movePlayer('x', -15)
 
   }
+  if (e.key == 'o' && hero.x > 5) {
+    health=0;
+
+  }
   if (e.keyCode == 32 && lasers.length <= laserTotal) {
     lasers.push([hero.x + 25, hero.y - 20, 4, 20]);
     laserShoot.play();
   }
 
-  document.addEventListener("mousemove", mouseMoveHandler, false);
+}
+document.addEventListener("mousemove", mouseMoveHandler, false);
 function mouseMoveHandler(e) {
-  var relativeX = e.clientX - canvas.offsetLeft;
-  if(relativeX > 0 && relativeX < canvas.width) {
-    hero.x = relativeX;
-  }
+var relativeX = e.clientX - canvas.offsetLeft;
+if(relativeX > 0 && relativeX < canvas.width) {
+  hero.x = relativeX;
 }
 
 
@@ -687,7 +686,8 @@ if(boss){
   moveBossLaser()
 }
 
-}
+
+
 
 
 if (frames % 99 === 0) {
@@ -717,15 +717,6 @@ if (frames % 99 === 0) {
 
 
 
-
-if (health < 1) {
-  window.cancelAnimationFrame(aframe);
-  end.style.display = "inline-flex";
-  gameboard.style.display = "none";
-  playAgain.style.display = "inline-flex";
-}
-
-
   if (health < 1) {
     //checks if you lost
     window.cancelAnimationFrame(aframe);
@@ -734,7 +725,7 @@ if (health < 1) {
     playAgain.style.display = "inline-flex";
   }
 
-
+}
 
 
 
@@ -780,13 +771,3 @@ function Start() {
 
   setTimeout(animate, 1000)
 }
-
-
-
-
-
-
-
-
-
-
