@@ -8,6 +8,7 @@ coinSound = new sound("./sounds/coinSound.wav");
 laserShoot = new sound("./sounds/laserShoot.wav");
 boom = new sound("./sounds/boom.wav");
 let diamondcount = 0;
+hurtSound = new sound("./sounds/doh.mp3");
 
 
 
@@ -394,7 +395,7 @@ function bossHitTest() {  // BOSS CAN HIT US NOW
   }
   if (remove == true) {
     health -= 1
-
+    
     bossLasers.splice(i, 0);
 
     remove = false;
@@ -449,7 +450,7 @@ function hitEnemyTest() {  // FOR KILLING BOSS
       remove = true;
       lasers.splice(i, 1);
 
-      boom.play();
+      hurtSound.play();
       total += 100;
       score.innerHTML = total;
       //  ladies.push([(Math.random() * 500) + 50, -45, enemy_w, enemy_h, speed]);
@@ -667,7 +668,7 @@ function animate() {
 
   drawBossLaser()
 
-  // drawGem();
+  drawGem();
   bossHitTest()
   hitEnemyTest()
 
@@ -711,9 +712,10 @@ if (frames % 99 === 0) {
     addRock()
    
   }
-
+if (frames % 270 === 0) {
   addDiamond()
 
+}
 
 
 
@@ -771,3 +773,12 @@ function Start() {
 
   setTimeout(animate, 1000)
 }
+
+
+
+
+
+
+
+
+
