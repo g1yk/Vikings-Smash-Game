@@ -673,12 +673,12 @@ function animate() {
   drawLaser()
   hitTest()
 
-
-    boss.drawBoss()
+if(boss){
+  boss.drawBoss()
     
-    moveAuto()
-    moveBossLaser()
-
+  moveAuto()
+  moveBossLaser()
+}
 
 
 
