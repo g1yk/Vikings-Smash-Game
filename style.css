@@ -2,6 +2,8 @@ body {
   padding: 0;
   text-align: center;
   overflow: hidden;
+  background-image: url(./images/page-background.jpg);
+  background-size: cover;
 }
 
 /* .game-intro {
@@ -79,4 +81,5 @@ display: none;
 ul{
   display: flex;
   flex-direction: column;
+  color : white;
 }
