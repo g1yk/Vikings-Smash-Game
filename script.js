@@ -30,7 +30,7 @@ let score = document.getElementById('score')
 let total = 0;
 let health = 10;
 let level = 1;
-let bossHeath = 30;
+let bossHeath = 25;
 let finalscore = document.querySelector("#end > ul > li:nth-child(3) > span")
 
 // class Road {
@@ -334,21 +334,21 @@ function drawLadiesLvl4() {
 
 
 function checkLvl() {  // LEVELS
-  if (total <= 1999) {
+  if (total <= 2999) {
     drawLadies()
     drawBosses()
   } 
 
-  if (total >= 2000) {
+  if (total >= 4000) {
 
     drawLadiesLvl2()
     level = 2
   } 
-  if (total>=3000) {
+  if (total>=5000) {
     drawLadiesLvl3()
     level = 3
     } 
-    if (total >= 7499) {
+    if (total >= 8499) {
       drawLadiesLvl4()
       level = 4
     }
@@ -484,7 +484,7 @@ function hitEnemyTest() {  // FOR KILLING BOSS
       lasers.splice(i, 1);
 
       hurtSound.play();
-      total += 100;
+      total += 25;
       score.innerHTML = total;
       //  ladies.push([(Math.random() * 500) + 50, -45, enemy_w, enemy_h, speed]);
     }
