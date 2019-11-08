@@ -30,7 +30,7 @@ let score = document.getElementById('score')
 let total = 0;
 let health = 10;
 let level = 1;
-let bossHeath = 5;
+let bossHeath = 30;
 let finalscore = document.querySelector("#end > ul > li:nth-child(3) > span")
 
 // class Road {
