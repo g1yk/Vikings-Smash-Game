@@ -43,6 +43,7 @@ body button {
   box-shadow: 0;
   border-radius: 5px;
   margin-bottom: 20px;
+  
 }
 
 #game-board {
@@ -74,6 +75,7 @@ background-image: url(./images/background.jpg);
 }
 #play-again{
 display: none;
+margin: 40px;
 }
 
 
@@ -105,4 +107,10 @@ p{
 ul.a {list-style-type: none;}
 h3{
   color:white;
+}
+
+#splashScreen{
+  align-content: center;
+  justify-content: center;
+  
 }

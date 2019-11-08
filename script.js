@@ -777,7 +777,7 @@ if(frames%270===0){
 let end = document.getElementById("end");
 let gameboard = document.getElementById("game-board");
 let playAgain = document.getElementById("play-again");
-let startscreen = document.getElementById("SplashScreen");
+let startscreen = document.getElementById("splashScreen");
 let scoreb = document.getElementById("score");
 let startButton = document.getElementById("startButton");
 
