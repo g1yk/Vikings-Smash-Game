@@ -1,0 +1,136 @@
+
+@import "compass/css3";
+
+@import "compass/css3/transform";
+
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+
+
+
+  body {
+    padding: 0;
+
+    background: 
+      linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+      ),
+      url(./images/page-background.jpg);
+    background-size: cover;
+    height: 100vh;
+    font-family:  sans-serif;
+    font-weight: bold ;
+  }
+
+
+
+.row {
+    color: white;
+    text-align: center;
+ 
+}
+
+h1 {
+    color: white;
+    font-family: 'Titillium Web', sans-serif;
+    /* font-weight: bold 700; */
+    font-size: 80px;
+    color: white;
+    margin: 0px 0px 30px;
+    /* text-shadow:
+     -0.4px -0.4px 0 #000,  
+      0.4px -0.4px 0 #000,
+      -0.4px 0.4px 0 #000,
+       0.4px 0.4px 0 #000; */
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 15px;
+
+
+}
+
+
+.container {
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.text-box {
+    margin-right: 7vw;
+	 margin-top: 7vh;
+}
+
+.btn:link,
+.btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    position: absolute;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn-white::after {
+    background-color: #fff;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated {
+    animation: moveInBottom 5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

@@ -13,7 +13,7 @@ body {
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.5)
   ),url(./images/page-background.jpg);
-  background-size: cover;
+  background-size: cover no-repeat;
 }
 
 /* .game-intro {
@@ -97,4 +97,8 @@ ul{
 h1{
   font-family: 'Bowlby One SC', cursive;
 color: #FFEEF2
+}
+
+.right-text {
+  color: white;
 }
