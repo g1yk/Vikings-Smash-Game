@@ -12,6 +12,10 @@ boom = new sound("./sounds/boom.wav");
 let diamondcount = 0;
 hurtSound = new sound("./sounds/doh.mp3");
 deathSound = new sound("./sounds/death.wav");
+opening = new sound("./sounds/opening.mp3");
+ending = new sound("./sounds/ending.mp3");
+drop = new sound("./sounds/incorrect1.mp3")
+opening.play();
 
 
 let ctx = canvas.getContext('2d')
@@ -21,11 +25,13 @@ document.onkeydown = gameControls
 
 let ladies = []
 let diamonds = []
+let bosses = []
 let score = document.getElementById('score')
 let total = 0;
 let health = 10;
 let level = 1;
 let bossHeath = 5;
+let finalscore = document.querySelector("#end > ul > li:nth-child(3) > span")
 
 // class Road {
 //   drawRoad = () => {
@@ -62,32 +68,35 @@ class Player {
   }
 }
 
-// class Boss {
-//   constructor(x, y, width, height) {
-//     this.x = x;
-//     this.y = y;
-//     this.width = width;
-//     this.height = height;
-//   }
-//   loadBoss = () => {
-//     let img = new Image();
-//     img.src = './images/warrior.png'
+class Boss {
+  constructor(x, y, width, height,health) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.health = health;
+  }
+  loadBoss = () => {
+    let img = new Image();
+    img.src = './images/warrior.png'
 
-//     img.onload = () => {
-//       this.img = img;
-//       this.drawBoss()
-//     }
-//   }
-//   moveBoss = (direction, value) => {
-//     this[direction] += value;
-//   }
+    img.onload = () => {
+      this.img = img;
+      this.drawBoss()
+    }
+  }
+  moveBoss = (direction, value) => {
+    this[direction] += value;
+  }
 
-//   drawBoss = () => {
-//     ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+  drawBoss = () => {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
 
-//   }
-// }
+  }
 
+
+
+}
 class Monster {
   constructor(x, y, width, height) {
     this.x = x;
@@ -101,7 +110,7 @@ class Monster {
     obstacleImg.src = './images/rock.png'
     obstacleImg.onload = () => {
       this.monster = obstacleImg;
-      ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+      //ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
     }
   }
   loadDiamond = () => {
@@ -109,10 +118,24 @@ class Monster {
     obstacleImg.src = './images/diamond1.png'
     obstacleImg.onload = () => {
       this.monster = obstacleImg;
-      ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+      //ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
+    }
+  }
+  
+  loadBoss = () => {
+    let img = new Image();
+    img.src = './images/warrior.png'
+
+    img.onload = () => {
+      this.img = img;
+      this.drawBoss()
     }
   }
 
+  moveBoss = (direction, value) => {
+    this[direction] += value;
+  }
+  
   moveRock = () => {
     //var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     //this.x+=Math.random()*5*plusOrMinus;
@@ -123,6 +146,8 @@ class Monster {
       total -= 100;
       score.innerHTML = total;
       health -= 1;
+      drop.play();
+      
       console.log(health);
 
       ladies.shift();
@@ -184,20 +209,6 @@ class Monster {
     ctx.drawImage(this.monster, this.x, this.y, this.width, this.height)
   }
 
-  loadBoss = () => {
-    let img = new Image();
-    img.src = './images/warrior.png'
-
-    img.onload = () => {
-      this.img = img;
-      this.drawBoss()
-    }
-  }
-  moveBoss = (direction, value) => {
-    this[direction] += value;
-  }
-
-
 
   drawBoss = () => {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
@@ -213,7 +224,7 @@ class Monster {
 let hero = new Player(500, 636, 64, 64) //Make my Player 
 hero.loadPlayer()
 
-let boss = new Monster(490, 30, 64, 64)
+let boss = new Monster(490, 30, 64, 64)//makes the boss
 boss.loadBoss()
 
 
@@ -259,6 +270,32 @@ function addDiamond() {
   diamonds.push(new Monster(Math.random() * canvas.width - 5, 0, 32, 32))
 }
 
+function addBoss(){
+  bosses.push(new Monster(Math.random() * canvas.width - 5, 0, 32, 32))
+}
+
+function drawBosses(){
+  bosses.forEach(boss=>{
+    boss.loadBoss()
+    boss.moveBoss()
+    boss.drawBoss()
+    // 
+    
+    
+    
+  }
+    )
+}
+//DRAWING ROCKS and diamonds
+
+function drawGem() {
+  diamonds.forEach(gem => {
+    gem.loadDiamond()
+    gem.moveDiamond()
+    gem.drawDiamond()
+
+  })
+}
 
 function drawLadies() {
   ladies.forEach(rock => {
@@ -299,6 +336,7 @@ function drawLadiesLvl4() {
 function checkLvl() {  // LEVELS
   if (total <= 1999) {
     drawLadies()
+    drawBosses()
   } 
 
   if (total >= 2000) {
@@ -317,14 +355,7 @@ function checkLvl() {  // LEVELS
   
 }
 
-function drawGem() {
-  diamonds.forEach(gem => {
-    gem.loadDiamond()
-    gem.moveDiamond()
-    gem.drawDiamond()
-
-  })
-}
+//LASERS AND BOSS LASER
 
 
 let laserTotal = 2
@@ -699,7 +730,7 @@ else{
 
 
 if (frames % 99 === 0) {
-
+ //addBoss();
   addRock()
 
   }
@@ -731,6 +762,10 @@ if(frames%270===0){
     end.style.display = "inline-flex";
     gameboard.style.display = "none";
     playAgain.style.display = "inline-flex";
+    finalscore.innerHTML = total;
+    
+    
+    ending.play();
   }
 
 }
@@ -746,8 +781,10 @@ let startscreen = document.getElementById("SplashScreen");
 let scoreb = document.getElementById("score");
 let startButton = document.getElementById("startButton");
 
+
 function restart() {
   //reloads the page
+  ending.stop();
   location.reload();
   
 
@@ -774,11 +811,11 @@ function swapScreens() {
 //console.log(ladies.length)
 
 function Start() {
-
+opening.stop();
   setTimeout(animate, 1000)
+  
 }
 
-	
 
 
 
