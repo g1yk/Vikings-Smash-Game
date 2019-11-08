@@ -62,9 +62,10 @@ display:none;
 width: 1000px;
 height:700px;
 text-align: center;
-font-size: 20px;
+font-size: 40px;
 font-family: Arial, Helvetica, sans-serif;
 align-content: center;
+list-style-type:none;
 /* background-color: blue; */
 align-self: center;
 justify-content: center;
@@ -98,3 +99,7 @@ h1{
   font-family: 'Bowlby One SC', cursive;
 color: #FFEEF2
 }
+p{
+  color:white;
+}
+ul.a {list-style-type: none;}
