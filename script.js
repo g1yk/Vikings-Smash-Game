@@ -334,7 +334,7 @@ function drawLadiesLvl4() {
 
 
 function checkLvl() {  // LEVELS
-  if (total <= 2999) {
+  if (total <= 3999) {
     drawLadies()
     drawBosses()
   } 
